@@ -1,0 +1,7 @@
+[package]
+name = "verbal-expressions"
+version = "0.1.0"
+authors = ["Alexander Popiak <alexander.popiak@gmail.com>"]
+
+[dependencies]
+regex = "0.1.44"
