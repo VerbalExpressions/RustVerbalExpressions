@@ -39,6 +39,25 @@ fn test_source_and_raw() {
 }
 
 #[test]
+fn test_any_and_any_of() {
+    let mut verex1: VerEx = VerEx::new();
+    verex1.any(r"ab");
+
+    let regex1 = verex1.compile().unwrap();
+    assert!(regex1.is_match(r"a"));
+    assert!(regex1.is_match(r"b"));
+    assert!(!regex1.is_match(r"c"));
+
+    let mut verex2: VerEx = VerEx::new();
+    verex2.any_of(r"ab");
+
+    let regex2 = verex2.compile().unwrap();
+    assert!(regex2.is_match(r"a"));
+    assert!(regex2.is_match(r"b"));
+    assert!(!regex2.is_match(r"c"));
+}
+
+#[test]
 fn test_anything() {
     let mut verex: VerEx = VerEx::new();
     verex.anything();
@@ -101,6 +120,36 @@ fn test_find_chained() {
     assert!(!regex.is_match(r"foo"));
     assert!(!regex.is_match(r"barfoo"));
     assert!(regex.is_match(r"foobar"));
+}
+
+#[test]
+fn test_maybe() {
+    let mut verex: VerEx = VerEx::new();
+    verex.start_of_line()
+         .maybe(r"a")
+         .end_of_line();
+    assert_eq!(verex.source(), r"^(a)?$");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r""));
+    assert!(regex.is_match(r"a"));
+    assert!(!regex.is_match(r"foo"));
+}
+
+#[test]
+fn test_range() {
+    let mut verex = VerEx::new();
+    verex.range(vec![('a', 'z')]);
+    assert_eq!(verex.source(), r"[a-z]");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"a"));
+    assert!(regex.is_match(r"b"));
+    assert!(regex.is_match(r"h"));
+    assert!(regex.is_match(r"u"));
+    assert!(regex.is_match(r"z"));
+    assert!(!regex.is_match(r"A"));
+    assert!(!regex.is_match(r"Z"));
 }
 
 #[test]
