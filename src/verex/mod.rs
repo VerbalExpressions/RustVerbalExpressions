@@ -105,6 +105,15 @@ impl VerEx {
         self.add(string.as_ref())
     }
 
+    pub fn or(&mut self, value: &str) -> &mut VerEx {
+        self.add(r"|");
+        if value.is_empty() {
+            return self;
+        } else {
+            return self.then(value);
+        }
+    }
+
     /// A range of characters e.g. [A-Z]
     /// Usage: verex.range(vec![('a', 'z'),('A', 'Z')])
     pub fn range(&mut self, range: Vec<(char, char)>) -> &mut VerEx {

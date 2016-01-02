@@ -137,6 +137,19 @@ fn test_maybe() {
 }
 
 #[test]
+fn test_or() {
+    let mut verex = VerEx::new();
+    verex.find(r"a")
+         .or(r"b");
+    assert_eq!(verex.source(), r"(a)|(b)");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"a"));
+    assert!(regex.is_match(r"b"));
+    assert!(!regex.is_match(r"z"));
+}
+
+#[test]
 fn test_range() {
     let mut verex = VerEx::new();
     verex.range(vec![('a', 'z')]);
