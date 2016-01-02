@@ -53,10 +53,9 @@ impl VerEx {
 
     /// Any of the given characters
     pub fn any(&mut self, chars: &str) -> &mut VerEx {
-        let mut string = r"[".to_string();
-        string.push_str(chars);
-        string.push_str(r"]");
-        self.add(string.as_ref())
+        self.add(r"[")
+            .add(chars)
+            .add(r"]")
     }
 
     pub fn any_of(&mut self, chars: &str) -> &mut VerEx {
@@ -70,10 +69,9 @@ impl VerEx {
 
     /// Any character zero or more times except the provided characters
     pub fn anything_but(&mut self, value: &str) -> &mut VerEx {
-        let mut string = r"([^".to_string();
-        string.push_str(value);
-        string.push_str(r"]*)");
-        self.add(string.as_ref())
+        self.add(r"([^")
+            .add(value)
+            .add(r"]*)")
     }
 
     pub fn br(&mut self) -> &mut VerEx {
@@ -86,10 +84,9 @@ impl VerEx {
 
     /// Find a specific string
     pub fn find(&mut self, value: &str) -> &mut VerEx {
-        let mut string = r"(".to_string();
-        string.push_str(value);
-        string.push_str(r")");
-        self.add(string.as_ref())
+        self.add(r"(")
+            .add(value)
+            .add(r")")
     }
 
     /// A line break!
@@ -99,10 +96,9 @@ impl VerEx {
 
     /// Any string either one or zero times
     pub fn maybe(&mut self, value: &str) -> &mut VerEx {
-        let mut string = r"(".to_string();
-        string.push_str(value);
-        string.push_str(r")?");
-        self.add(string.as_ref())
+        self.add(r"(")
+            .add(value)
+            .add(r")?")
     }
 
     pub fn or(&mut self, value: &str) -> &mut VerEx {
@@ -115,7 +111,7 @@ impl VerEx {
     }
 
     /// A range of characters e.g. [A-Z]
-    /// Usage: verex.range(vec![('a', 'z'),('A', 'Z')])
+    /// Usage example: verex.range(vec![('a', 'z'),('A', 'Z')])
     pub fn range(&mut self, range: Vec<(char, char)>) -> &mut VerEx {
         let mut string = r"[".to_string();
         for tuple in range {
@@ -136,10 +132,9 @@ impl VerEx {
 
     /// Any character at least one time except for these characters
     pub fn something_but(&mut self, value: &str) -> &mut VerEx {
-        let mut string = r"([^".to_string();
-        string.push_str(value);
-        string.push_str(r"]+)");
-        self.add(string.as_ref())
+        self.add(r"([^")
+            .add(value)
+            .add(r"]+)")
     }
 
     pub fn start_of_line(&mut self) -> &mut VerEx {
