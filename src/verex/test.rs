@@ -166,6 +166,13 @@ fn test_range() {
 }
 
 #[test]
+fn test_replace() {
+    let mut verex = VerEx::from_str(r"foobar");
+    verex.replace(r"r", r"z");
+    assert_eq!(verex.source(), r"foobaz");
+}
+
+#[test]
 fn test_something() {
     let mut verex: VerEx = VerEx::new();
     verex.something();
@@ -190,4 +197,16 @@ fn test_someting_but() {
     assert!(!regex.is_match(r"foo"));
     assert!(!regex.is_match(r"foofoo"));
     assert!(!regex.is_match(r"barfoo"));
+}
+
+#[test]
+fn test_word() {
+    let mut verex = VerEx::new();
+    verex.word();
+    assert_eq!(verex.source(), r"(\w+)");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"word"));
+    assert!(regex.is_match(r"w0rd"));
+    assert!(!regex.is_match(r"./"));
 }

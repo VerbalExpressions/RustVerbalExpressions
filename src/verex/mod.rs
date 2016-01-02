@@ -125,6 +125,12 @@ impl VerEx {
         self.add(string.as_ref())
     }
 
+    /// Replace a substring
+    pub fn replace(&mut self, from: &str, to: &str) -> &mut VerEx {
+        self.string = self.string.replace(from, to);
+        self
+    }
+
     /// Any character at least one time
     pub fn something(&mut self) -> &mut VerEx {
         self.add(r"(.+)")
