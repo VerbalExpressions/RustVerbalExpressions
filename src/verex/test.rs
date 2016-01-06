@@ -75,7 +75,7 @@ fn test_anything_but() {
     verex.start_of_line()
          .anything_but("foo")
          .end_of_line();
-    assert_eq!(verex.source(), r"^([^foo]*)$");
+    assert_eq!(verex.source(), r"^(?:[^foo]*)$");
 
     let regex = verex.compile().unwrap();
     assert!(regex.is_match(r""));
@@ -89,7 +89,7 @@ fn test_anything_but() {
 fn test_find_and_then() {
     let mut verex: VerEx = VerEx::new();
     verex.find("foo");
-    assert_eq!(verex.source(), r"(foo)");
+    assert_eq!(verex.source(), r"(?:foo)");
 
     let regex = verex.compile().unwrap();
     assert!(!regex.is_match(r"bar"));
@@ -100,7 +100,7 @@ fn test_find_and_then() {
     // same as find
     let mut verex2: VerEx = VerEx::new();
     verex2.then("foo");
-    assert_eq!(verex2.source(), r"(foo)");
+    assert_eq!(verex2.source(), r"(?:foo)");
 
     let regex2 = verex2.compile().unwrap();
     assert!(!regex2.is_match(r"bar"));
@@ -114,7 +114,7 @@ fn test_find_chained() {
     let mut verex: VerEx = VerEx::new();
     verex.find("foo")
          .then("bar");
-    assert_eq!(verex.source(), r"(foo)(bar)");
+    assert_eq!(verex.source(), r"(?:foo)(?:bar)");
 
     let regex = verex.compile().unwrap();
     assert!(!regex.is_match(r"bar"));
@@ -129,7 +129,7 @@ fn test_maybe() {
     verex.start_of_line()
          .maybe(r"a")
          .end_of_line();
-    assert_eq!(verex.source(), r"^(a)?$");
+    assert_eq!(verex.source(), r"^(?:a)?$");
 
     let regex = verex.compile().unwrap();
     assert!(regex.is_match(r""));
@@ -142,7 +142,7 @@ fn test_or() {
     let mut verex = VerEx::new();
     verex.find(r"a")
          .or(r"b");
-    assert_eq!(verex.source(), r"(a)|(b)");
+    assert_eq!(verex.source(), r"(?:a)|(?:b)");
 
     let regex = verex.compile().unwrap();
     assert!(regex.is_match(r"a"));
@@ -190,7 +190,7 @@ fn test_someting_but() {
     verex.start_of_line()
          .something_but("foo")
          .end_of_line();
-    assert_eq!(verex.source(), r"^([^foo]+)$");
+    assert_eq!(verex.source(), r"^(?:[^foo]+)$");
 
     let regex = verex.compile().unwrap();
     assert!(!regex.is_match(r""));
@@ -204,7 +204,7 @@ fn test_someting_but() {
 fn test_word() {
     let mut verex = VerEx::new();
     verex.word();
-    assert_eq!(verex.source(), r"(\w+)");
+    assert_eq!(verex.source(), r"(?:\w+)");
 
     let regex = verex.compile().unwrap();
     assert!(regex.is_match(r"word"));

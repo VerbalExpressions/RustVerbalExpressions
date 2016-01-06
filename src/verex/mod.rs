@@ -54,13 +54,35 @@ impl VerEx {
         self.source()
     }
 
+    // classes
+    pub fn open_class(&mut self) -> &mut VerEx {
+        self.add(r"[")
+    }
+
+    pub fn close_class(&mut self) -> &mut VerEx {
+        self.add(r"]")
+    }
+
+    // groups
+    pub fn open_group(&mut self) -> &mut VerEx {
+        self.add(r"(?:")
+    }
+
+    pub fn open_capturing_group(&mut self) -> &mut VerEx {
+        self.add(r"(")
+    }
+
+    pub fn close_group(&mut self) -> &mut VerEx {
+        self.add(r")")
+    }
+
     // --------------------------------------------------
 
     /// Any of the given characters
     pub fn any(&mut self, chars: &str) -> &mut VerEx {
-        self.add(r"[")
+        self.open_class()
             .add(chars)
-            .add(r"]")
+            .close_class()
     }
 
     pub fn any_of(&mut self, chars: &str) -> &mut VerEx {
@@ -74,13 +96,24 @@ impl VerEx {
 
     /// Any character zero or more times except the provided characters
     pub fn anything_but(&mut self, value: &str) -> &mut VerEx {
-        self.add(r"([^")
+        self.open_group()
+            .open_class()
+            .add(r"^")
             .add(value)
-            .add(r"]*)")
+            .close_class()
+            .add(r"*")
+            .close_group()
     }
 
     pub fn br(&mut self) -> &mut VerEx {
         self.line_break()
+    }
+
+    /// Find a specific string and capture it
+    pub fn capture(&mut self, value: &str) -> &mut VerEx {
+        self.open_capturing_group()
+            .add(value)
+            .close_group()
     }
 
     pub fn end_of_line(&mut self) -> &mut VerEx {
@@ -89,21 +122,25 @@ impl VerEx {
 
     /// Find a specific string
     pub fn find(&mut self, value: &str) -> &mut VerEx {
-        self.add(r"(")
+        self.open_group()
             .add(value)
-            .add(r")")
+            .close_group()
     }
 
     /// A line break!
     pub fn line_break(&mut self) -> &mut VerEx {
-        self.add(r"(\n|(\r\n))")
+        self.open_group()
+            .add(r"\n")
+            .or(r"\r\n")
+            .close_group()
     }
 
     /// Any string either one or zero times
     pub fn maybe(&mut self, value: &str) -> &mut VerEx {
-        self.add(r"(")
+        self.open_group()
             .add(value)
-            .add(r")?")
+            .close_group()
+            .add(r"?")
     }
 
     pub fn or(&mut self, value: &str) -> &mut VerEx {
@@ -143,9 +180,13 @@ impl VerEx {
 
     /// Any character at least one time except for these characters
     pub fn something_but(&mut self, value: &str) -> &mut VerEx {
-        self.add(r"([^")
+        self.open_group()
+            .open_class()
+            .add(r"^")
             .add(value)
-            .add(r"]+)")
+            .close_class()
+            .add(r"+")
+            .close_group()
     }
 
     pub fn start_of_line(&mut self) -> &mut VerEx {
@@ -164,6 +205,6 @@ impl VerEx {
 
     /// Any alphanumeric characters
     pub fn word(&mut self) -> &mut VerEx {
-        self.add(r"(\w+)")
+        self.find(r"\w+")
     }
 }
