@@ -32,10 +32,11 @@ fn test_compile_regex() {
 }
 
 #[test]
-fn test_source_and_raw() {
+fn test_source_and_raw_and_value() {
     let verex: VerEx = VerEx::from_str(r"a");
     assert_eq!(verex.source(), r"a");
     assert_eq!(verex.raw(), r"a");
+    assert_eq!(verex.value(), r"a");
 }
 
 #[test]

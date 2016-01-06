@@ -27,6 +27,7 @@ impl VerEx {
         VerEx::from_string(string.to_string())
     }
 
+    // --------------------------------------------------
     // fundamental methods
     pub fn add(&mut self, value: &str) -> &mut VerEx{
         self.string.push_str(value);
@@ -37,6 +38,10 @@ impl VerEx {
         Regex::new(self.string.as_ref())
     }
 
+    pub fn raw(& self) -> &str {
+        self.source()
+    }
+
     pub fn regex(&mut self) -> Result<Regex, Error> {
         self.compile()
     }
@@ -45,7 +50,7 @@ impl VerEx {
         self.string.as_ref()
     }
 
-    pub fn raw(& self) -> &str {
+    pub fn value(& self) -> &str {
         self.source()
     }
 
