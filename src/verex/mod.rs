@@ -1,55 +1,63 @@
-extern crate regex;
-
-use self::regex::Regex;
-use self::regex::Error;
+pub use regex::Regex;
+use regex::Error;
 
 #[cfg(test)] pub mod test;
 
+/// The struct used for building verbal expression objects
 pub struct VerEx {
     string: String
 }
 
 impl VerEx {
     // constructors
+    /// Standard Constructor
     pub fn new() -> VerEx {
         VerEx {
             string: String::new(),
         }
     }
 
+    /// Create a `VerEx` object from a `String`
     pub fn from_string(string: String) -> VerEx {
         VerEx {
             string: string,
         }
     }
 
+    /// Create a `VerEx` object from a `&str`
     pub fn from_str(string: &str) -> VerEx {
         VerEx::from_string(string.to_string())
     }
 
     // --------------------------------------------------
     // fundamental methods
+    /// Add a string to the regex string in the `VerEx` and return self
     pub fn add(&mut self, value: &str) -> &mut VerEx{
         self.string.push_str(value);
         self
     }
 
+    /// Compile the `VerEx` to a `Regex` and return the result
     pub fn compile(&mut self) -> Result<Regex, Error> {
         Regex::new(self.string.as_ref())
     }
 
+    /// Return the raw regex string contained in the `VerEx`
     pub fn raw(& self) -> &str {
         self.source()
     }
 
+    /// Compile the `VerEx` to a `Regex` and return the result
     pub fn regex(&mut self) -> Result<Regex, Error> {
         self.compile()
     }
 
+    /// Return the raw regex string contained in the `VerEx`
     pub fn source(& self) -> &str {
         self.string.as_ref()
     }
 
+    /// Return the raw regex string contained in the `VerEx`
     pub fn value(& self) -> &str {
         self.source()
     }
@@ -105,6 +113,7 @@ impl VerEx {
             .close_group()
     }
 
+    /// A line break!
     pub fn br(&mut self) -> &mut VerEx {
         self.line_break()
     }
