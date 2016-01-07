@@ -4,6 +4,7 @@ use regex::Error;
 #[cfg(test)] pub mod test;
 
 /// The struct used for building verbal expression objects
+#[derive(Debug, Clone)]
 pub struct VerEx {
     string: String
 }
@@ -215,5 +216,32 @@ impl VerEx {
     /// Any alphanumeric characters
     pub fn word(&mut self) -> &mut VerEx {
         self.find(r"\w+")
+    }
+}
+
+use std::fmt;
+
+impl fmt::Display for VerEx {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.string)
+    }
+}
+
+impl Eq for VerEx {}
+
+use std::str::FromStr;
+
+impl FromStr for VerEx {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<VerEx, Error> {
+        Ok(VerEx::from_str(s))
+    }
+}
+
+/// Equality comparison is based on the original string. It is possible that different verbal expressions have the same matching behavior, but are still compared unequal.
+impl PartialEq for VerEx {
+    fn eq(&self, other: &VerEx) -> bool {
+        self.string == other.string
     }
 }
