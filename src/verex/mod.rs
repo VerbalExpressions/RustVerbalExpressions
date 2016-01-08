@@ -141,7 +141,7 @@ impl VerEx {
     pub fn line_break(&mut self) -> &mut VerEx {
         self.open_group()
             .add(r"\n")
-            .or(r"\r\n")
+            .or_find(r"\r\n")
             .close_group()
     }
 
@@ -153,13 +153,15 @@ impl VerEx {
             .add(r"?")
     }
 
-    pub fn or(&mut self, value: &str) -> &mut VerEx {
-        self.add(r"|");
-        if value.is_empty() {
-            return self;
-        } else {
-            return self.then(value);
-        }
+    /// Either match the sub-expression before or after this
+    pub fn or(&mut self) -> &mut VerEx {
+        self.add(r"|")
+    }
+
+    /// Either match the sub-expression before or the provided value
+    pub fn or_find(&mut self, value: &str) -> &mut VerEx {
+        self.or()
+            .find(value)
     }
 
     /// A range of characters e.g. [A-Z]

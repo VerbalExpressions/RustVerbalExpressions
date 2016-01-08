@@ -138,16 +138,27 @@ fn test_maybe() {
 }
 
 #[test]
-fn test_or() {
-    let mut verex = VerEx::new();
-    verex.find(r"a")
-         .or(r"b");
-    assert_eq!(verex.source(), r"(?:a)|(?:b)");
+fn test_or_and_or_find() {
+    let mut verex1 = VerEx::new();
+    verex1.find(r"a")
+          .or()
+          .find(r"b");
+    assert_eq!(verex1.source(), r"(?:a)|(?:b)");
 
-    let regex = verex.compile().unwrap();
-    assert!(regex.is_match(r"a"));
-    assert!(regex.is_match(r"b"));
-    assert!(!regex.is_match(r"z"));
+    let regex1 = verex1.compile().unwrap();
+    assert!(regex1.is_match(r"a"));
+    assert!(regex1.is_match(r"b"));
+    assert!(!regex1.is_match(r"z"));
+
+    let mut verex2 = VerEx::new();
+    verex2.find(r"a")
+          .or_find(r"b");
+    assert_eq!(verex2.source(), r"(?:a)|(?:b)");
+
+    let regex2 = verex2.compile().unwrap();
+    assert!(regex2.is_match(r"a"));
+    assert!(regex2.is_match(r"b"));
+    assert!(!regex2.is_match(r"z"));
 }
 
 #[test]
