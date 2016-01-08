@@ -63,24 +63,27 @@ impl VerEx {
         self.source()
     }
 
-    // classes
+    /// Open a character class
     pub fn open_class(&mut self) -> &mut VerEx {
         self.add(r"[")
     }
 
+    /// Close a character class
     pub fn close_class(&mut self) -> &mut VerEx {
         self.add(r"]")
     }
 
-    // groups
+    /// Open a non-capturing group
     pub fn open_group(&mut self) -> &mut VerEx {
         self.add(r"(?:")
     }
 
+    /// Open a capturing group
     pub fn open_capturing_group(&mut self) -> &mut VerEx {
         self.add(r"(")
     }
 
+    /// Close a capturing or non-capturing group
     pub fn close_group(&mut self) -> &mut VerEx {
         self.add(r")")
     }
@@ -94,6 +97,7 @@ impl VerEx {
             .close_class()
     }
 
+    /// See any()
     pub fn any_of(&mut self, chars: &str) -> &mut VerEx {
         self.any(chars)
     }
@@ -126,6 +130,7 @@ impl VerEx {
             .close_group()
     }
 
+    /// Add a token for matching the end of a line
     pub fn end_of_line(&mut self) -> &mut VerEx {
         self.add(r"$")
     }
@@ -201,11 +206,12 @@ impl VerEx {
             .close_group()
     }
 
+    /// Add a token for the start of a line
     pub fn start_of_line(&mut self) -> &mut VerEx {
         self.add(r"^")
     }
 
-    // A tab
+    /// Add a token for a tab
     pub fn tab(&mut self) -> &mut VerEx {
         self.add(r"\t")
     }

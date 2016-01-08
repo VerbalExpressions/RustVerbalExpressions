@@ -222,3 +222,5 @@ fn test_word() {
     assert!(regex.is_match(r"w0rd"));
     assert!(!regex.is_match(r"./"));
 }
+
+// test the standalone functions
