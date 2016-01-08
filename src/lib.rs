@@ -5,7 +5,7 @@
 //!
 //! # Examples
 //!
-//! A simple example to show the API.
+//! A simple example to show the usage:
 //!
 //! ```rust
 //! # extern crate verex;
@@ -35,13 +35,13 @@
 //!                  .compile()
 //!                  .unwrap();
 //!
-//!     // Test if the URL is valid
+//!     // Test whether the regexes match correctly
 //!     assert!(!regex1.is_match("b"));
 //!     assert!(regex2.is_match("b"));
 //!     assert!(regex3.is_match("b"));
 //!     assert!(regex4.is_match("b"));
 //!
-//!     // Test the generated regex string
+//!     // Test the generated regex strings
 //!     assert_eq!(regex1.as_str(), r"(?:a)");
 //!     assert_eq!(regex2.as_str(), r"(?:a)|(?:b)");
 //!     assert_eq!(regex3.as_str(), r"(?:a)|(?:b)");
@@ -78,6 +78,28 @@
 //!
 //!     // Test the generated regex string
 //!     assert_eq!(verex.source(), r"^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$");
+//! # }
+//! ```
+//!
+//! Example usage of the or! macro:
+//!
+//! ```rust
+//! #[macro_use(or)]
+//! extern crate verex;
+//!
+//! # fn main() {
+//!     let regex = or!("foo", "bar", "baz")
+//!                 .compile()
+//!                 .unwrap();
+//!
+//!     // Test if the regex matches correctly
+//!     assert!(regex.is_match("foo"));
+//!     assert!(regex.is_match("bar"));
+//!     assert!(regex.is_match("baz"));
+//!     assert!(!regex.is_match("bum"));
+//!
+//!     // Test the generated regex string
+//!     assert_eq!(regex.as_str(), r"(?:foo)|(?:bar)|(?:baz)");
 //! # }
 //! ```
 
@@ -140,11 +162,20 @@ pub fn maybe(value: &str) -> VerEx {
     VerEx::new().maybe(value).clone()
 }
 
-// TODO: implement variadic macro
-// /// Either match the sub-expression before or after this
-// pub fn or(&mut self) -> &mut VerEx {
-//     self.add(r"|")
-// }
+/// Match any of the given sub-expressions
+#[macro_export]
+macro_rules! or {
+    ( $first_string:expr, $( $string:expr ),* ) => {
+        {
+            let mut verex = $crate::VerEx::new();
+            verex.find($first_string);
+            $(
+                verex.or_find($string);
+            )*
+            verex
+        }
+    };
+}
 
 /// A range of characters e.g. [A-Z]
 /// Usage example: verex.range(vec![('a', 'z'),('A', 'Z')])
