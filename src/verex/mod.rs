@@ -238,11 +238,12 @@ impl fmt::Display for VerEx {
 impl Eq for VerEx {}
 
 use std::str::FromStr;
+pub enum Void {}
 
 impl FromStr for VerEx {
-    type Err = Error;
+    type Err = Void;
 
-    fn from_str(s: &str) -> Result<VerEx, Error> {
+    fn from_str(s: &str) -> Result<VerEx, Void> {
         Ok(VerEx::from_str(s))
     }
 }
