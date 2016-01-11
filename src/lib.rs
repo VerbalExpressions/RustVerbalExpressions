@@ -142,6 +142,11 @@ pub fn capture(value: &str) -> VerEx {
     VerEx::new().capture(value).clone()
 }
 
+/// Add the token for matching digits
+pub fn digit() -> VerEx {
+    VerEx::new().digit().clone()
+}
+
 /// Add a token for the end of a line
 pub fn end_of_line() -> VerEx {
     VerEx::new().end_of_line().clone()

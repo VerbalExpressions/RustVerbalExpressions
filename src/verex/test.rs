@@ -86,6 +86,21 @@ fn test_anything_but() {
 }
 
 #[test]
+fn test_digit() {
+    let verex = VerEx::new().digit().clone();
+    assert_eq!(verex.source(), r"\d");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"0"));
+    assert!(regex.is_match(r"1"));
+    assert!(regex.is_match(r"3"));
+    assert!(regex.is_match(r"9"));
+    assert!(!regex.is_match(r"a"));
+    assert!(!regex.is_match(r" "));
+    assert!(!regex.is_match(r"?"));
+}
+
+#[test]
 fn test_find_and_then() {
     let mut verex: VerEx = VerEx::new();
     verex.find("foo");

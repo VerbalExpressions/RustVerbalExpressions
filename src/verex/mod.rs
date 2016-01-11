@@ -39,7 +39,7 @@ impl VerEx {
     }
 
     /// Compile the `VerEx` to a `Regex` and return the result
-    pub fn compile(&mut self) -> Result<Regex, Error> {
+    pub fn compile(& self) -> Result<Regex, Error> {
         Regex::new(self.string.as_ref())
     }
 
@@ -49,7 +49,7 @@ impl VerEx {
     }
 
     /// Compile the `VerEx` to a `Regex` and return the result
-    pub fn regex(&mut self) -> Result<Regex, Error> {
+    pub fn regex(& self) -> Result<Regex, Error> {
         self.compile()
     }
 
@@ -128,6 +128,11 @@ impl VerEx {
         self.open_capturing_group()
             .add(value)
             .close_group()
+    }
+
+    /// Add the token for matching digits
+    pub fn digit(&mut self) -> &mut VerEx {
+        self.add(r"\d")
     }
 
     /// Add a token for matching the end of a line
