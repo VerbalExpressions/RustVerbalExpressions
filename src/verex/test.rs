@@ -118,6 +118,26 @@ fn test_anything_but() {
 }
 
 #[test]
+fn test_br_and_linebreak() {
+    // br
+    let or_regex_string = r"(?:(?:\n|(?:\r\n)))";
+    let verex1 = Verex::new().br().clone();
+    assert_eq!(verex1.source(), or_regex_string);
+
+    let regex1 = verex1.compile().unwrap();
+    assert!(regex1.is_match("\n"));
+    assert!(regex1.is_match("\r\n"));
+
+    // line_break
+    let verex2 = Verex::new().line_break().clone();
+    assert_eq!(verex2.source(), or_regex_string);
+
+    let regex2 = verex2.compile().unwrap();
+    assert!(regex2.is_match("\n"));
+    assert!(regex2.is_match("\r\n"));
+}
+
+#[test]
 fn test_digit() {
     let verex = Verex::new().digit().clone();
     assert_eq!(verex.source(), r"(?:\d)");
