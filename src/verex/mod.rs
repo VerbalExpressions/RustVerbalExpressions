@@ -235,9 +235,9 @@ impl VerEx {
     }
 
     /// Replace a substring
-    pub fn replace(&mut self, from: &str, to: &str) -> &mut VerEx {
-        self.string = self.string.replace(from, to);
-        self.update_source_with_modifiers()
+    pub fn replace(& self, text: &str, replacement: &str) -> Result<String, Error> {
+        let regex = try!(self.compile());
+        Ok(regex.replace(text, replacement))
     }
 
     /// Toggle whether ^ and $ match line start and end or string start and end

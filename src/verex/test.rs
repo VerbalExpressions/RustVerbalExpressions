@@ -226,9 +226,9 @@ fn test_range() {
 
 #[test]
 fn test_replace() {
-    let mut verex = VerEx::from_str(r"foobar");
-    verex.replace(r"r", r"z");
-    assert_eq!(verex.source(), r"(?:foobaz)");
+    let verex = VerEx::from_str(r"r");
+    let replaced = verex.replace(r"foobar", r"z").unwrap();
+    assert_eq!(replaced, r"foobaz");
 }
 
 #[test]
