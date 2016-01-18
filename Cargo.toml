@@ -2,15 +2,12 @@
 name = "verex"
 version = "0.1.0"
 authors = ["Alexander Popiak <alexander.popiak@gmail.com>"]
-
-[dependencies]
-regex = "0.1"
-bitflags = "0.4"
-
-[package]
-description = "This crate provides a Rust implementation of VerbalExpressions in order to build regex
-strings without knowing the minutiae of regex syntax."
+description = "This crate provides a Rust implementation of VerbalExpressions in order to build regex strings without knowing the minutiae of regex syntax."
 repository = "https://github.com/VerbalExpressions/RustVerbalExpressions"
 readme = "README.md"
 keywords = ["regex", "verex", "regex-builder"]
 license = "MIT"
+
+[dependencies]
+regex = "0.1"
+bitflags = "0.4"
