@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EncodeWide",""]],"trait":[["OsStrExt","Windows-specific extensions to `OsStr`."],["OsStringExt","Windows-specific extensions to `OsString`."]]});

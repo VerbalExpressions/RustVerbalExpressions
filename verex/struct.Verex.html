@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Verex` struct in crate `verex`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Verex">
+
+    <title>verex::Verex - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>verex</a></p><script>window.sidebarCurrent = {name: 'Verex', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>verex</a>::<wbr><a class='struct' href=''>Verex</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-164' class='srclink' href='../src/verex/verex/mod.rs.html#22-26' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Verex {
+    // some fields omitted
+}</pre><div class='docblock'><p>The struct used for building verbal expression objects</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Standard Constructor</p>
+</div><h4 id='method.from_string' class='method'><code>fn <a href='#method.from_string' class='fnname'>from_string</a>(string: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Create a <code>Verex</code> object from a <code>String</code></p>
+</div><h4 id='method.from_str' class='method'><code>fn <a href='#method.from_str' class='fnname'>from_str</a>(string: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Create a <code>Verex</code> object from a <code>&amp;str</code></p>
+</div><h4 id='method.add' class='method'><code>fn <a href='#method.add' class='fnname'>add</a>(&amp;mut self, value: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Add a string to the regex string in the <code>Verex</code> and return self</p>
+</div><h4 id='method.update_source_with_modifiers' class='method'><code>fn <a href='#method.update_source_with_modifiers' class='fnname'>update_source_with_modifiers</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Update the source string from the (presumably changed) builder string</p>
+</div><h4 id='method.compile' class='method'><code>fn <a href='#method.compile' class='fnname'>compile</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../regex/re/enum.Regex.html' title='regex::re::Regex'>Regex</a>, <a class='enum' href='../regex/re/enum.Error.html' title='regex::re::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Compile the <code>Verex</code> to a <code>Regex</code> and return the result</p>
+</div><h4 id='method.raw' class='method'><code>fn <a href='#method.raw' class='fnname'>raw</a>(&amp;self) -&gt; &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h4>
+<div class='docblock'><p>Return the raw regex string contained in the <code>Verex</code></p>
+</div><h4 id='method.regex' class='method'><code>fn <a href='#method.regex' class='fnname'>regex</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../regex/re/enum.Regex.html' title='regex::re::Regex'>Regex</a>, <a class='enum' href='../regex/re/enum.Error.html' title='regex::re::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Compile the <code>Verex</code> to a <code>Regex</code> and return the result</p>
+</div><h4 id='method.source' class='method'><code>fn <a href='#method.source' class='fnname'>source</a>(&amp;self) -&gt; &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h4>
+<div class='docblock'><p>Return the raw regex string contained in the <code>Verex</code></p>
+</div><h4 id='method.value' class='method'><code>fn <a href='#method.value' class='fnname'>value</a>(&amp;self) -&gt; &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h4>
+<div class='docblock'><p>Return the raw regex string contained in the <code>Verex</code></p>
+</div><h4 id='method.open_class' class='method'><code>fn <a href='#method.open_class' class='fnname'>open_class</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Open a character class</p>
+</div><h4 id='method.close_class' class='method'><code>fn <a href='#method.close_class' class='fnname'>close_class</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Close a character class</p>
+</div><h4 id='method.open_group' class='method'><code>fn <a href='#method.open_group' class='fnname'>open_group</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Open a non-capturing group</p>
+</div><h4 id='method.open_capturing_group' class='method'><code>fn <a href='#method.open_capturing_group' class='fnname'>open_capturing_group</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Open a capturing group</p>
+</div><h4 id='method.close_group' class='method'><code>fn <a href='#method.close_group' class='fnname'>close_group</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Close a capturing or non-capturing group</p>
+</div><h4 id='method.any' class='method'><code>fn <a href='#method.any' class='fnname'>any</a>(&amp;mut self, chars: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Any of the given characters</p>
+</div><h4 id='method.any_of' class='method'><code>fn <a href='#method.any_of' class='fnname'>any_of</a>(&amp;mut self, chars: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>See <code>any()</code></p>
+</div><h4 id='method.anything' class='method'><code>fn <a href='#method.anything' class='fnname'>anything</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Any character zero or more times</p>
+</div><h4 id='method.anything_but' class='method'><code>fn <a href='#method.anything_but' class='fnname'>anything_but</a>(&amp;mut self, value: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Any character zero or more times except the provided characters</p>
+</div><h4 id='method.br' class='method'><code>fn <a href='#method.br' class='fnname'>br</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>A line break!</p>
+</div><h4 id='method.capture' class='method'><code>fn <a href='#method.capture' class='fnname'>capture</a>(&amp;mut self, value: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Find a specific string and capture it</p>
+</div><h4 id='method.digit' class='method'><code>fn <a href='#method.digit' class='fnname'>digit</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Add the token for matching digits</p>
+</div><h4 id='method.end_of_line' class='method'><code>fn <a href='#method.end_of_line' class='fnname'>end_of_line</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Add a token for matching the end of a line</p>
+</div><h4 id='method.find' class='method'><code>fn <a href='#method.find' class='fnname'>find</a>(&amp;mut self, value: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Find a specific string</p>
+</div><h4 id='method.line_break' class='method'><code>fn <a href='#method.line_break' class='fnname'>line_break</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>A line break!</p>
+</div><h4 id='method.maybe' class='method'><code>fn <a href='#method.maybe' class='fnname'>maybe</a>(&amp;mut self, value: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Any string either one or zero times</p>
+</div><h4 id='method.or' class='method'><code>fn <a href='#method.or' class='fnname'>or</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Either match the sub-expression before or after this</p>
+</div><h4 id='method.or_find' class='method'><code>fn <a href='#method.or_find' class='fnname'>or_find</a>(&amp;mut self, value: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Either match the sub-expression before or the provided value</p>
+</div><h4 id='method.range' class='method'><code>fn <a href='#method.range' class='fnname'>range</a>(&amp;mut self, range: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>, <a href='https://doc.rust-lang.org/nightly/std/primitive.char.html'>char</a>)</a>&gt;) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>A range of characters e.g. [A-Z]
+Usage example: verex.range(vec![(&#39;a&#39;, &#39;z&#39;),(&#39;A&#39;, &#39;Z&#39;)])</p>
+</div><h4 id='method.replace' class='method'><code>fn <a href='#method.replace' class='fnname'>replace</a>(&amp;self, text: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, replacement: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='enum' href='../regex/re/enum.Error.html' title='regex::re::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Replace a substring</p>
+</div><h4 id='method.search_one_line' class='method'><code>fn <a href='#method.search_one_line' class='fnname'>search_one_line</a>(&amp;mut self, enable: <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Toggle whether ^ and $ match line start and end or string start and end</p>
+</div><h4 id='method.something' class='method'><code>fn <a href='#method.something' class='fnname'>something</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Any character at least one time</p>
+</div><h4 id='method.something_but' class='method'><code>fn <a href='#method.something_but' class='fnname'>something_but</a>(&amp;mut self, value: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Any character at least one time except for these characters</p>
+</div><h4 id='method.start_of_line' class='method'><code>fn <a href='#method.start_of_line' class='fnname'>start_of_line</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Add a token for the start of a line</p>
+</div><h4 id='method.tab' class='method'><code>fn <a href='#method.tab' class='fnname'>tab</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Add a token for a tab</p>
+</div><h4 id='method.then' class='method'><code>fn <a href='#method.then' class='fnname'>then</a>(&amp;mut self, value: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>To use find &quot;in the sentence&quot; and make the chaining flow better</p>
+</div><h4 id='method.with_any_case' class='method'><code>fn <a href='#method.with_any_case' class='fnname'>with_any_case</a>(&amp;mut self, enable: <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Toggle whether to match case-sensitively or not</p>
+</div><h4 id='method.word' class='method'><code>fn <a href='#method.word' class='fnname'>word</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<div class='docblock'><p>Any alphanumeric characters</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html' title='core::str::FromStr'>FromStr</a> for <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h3><div class='impl-items'><h4 id='assoc_type.Err' class='type'><code>type Err = Void</code></h4>
+<h4 id='method.from_str' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html#method.from_str' class='fnname'>from_str</a>(s: &amp;<a href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a>, Void&gt;</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h3><div class='docblock'><p>Equality comparison is based on the original string. It is possible that different verbal expressions have the same matching behavior, but are still compared unequal.</p>
+</div><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../verex/struct.Verex.html' title='verex::Verex'>Verex</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "verex";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

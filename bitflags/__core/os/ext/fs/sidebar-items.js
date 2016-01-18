@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["symlink_dir","Creates a new directory symlink on the filesystem."],["symlink_file","Creates a new file symbolic link on the filesystem."]],"trait":[["MetadataExt","Extension methods for `fs::Metadata` to access the raw fields contained within."],["OpenOptionsExt","Windows-specific extensions to `OpenOptions`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Regex","A compiled regular expression"]],"struct":[["Verex","The struct used for building verbal expression objects"]]});

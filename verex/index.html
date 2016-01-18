@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `verex` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, verex">
+
+    <title>verex - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'verex', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>verex</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-0' class='srclink' href='../src/verex/lib.rs.html#1-216' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This crate provides a Rust implementation of VerbalExpressions in order to build regex
+strings without knowing the minutiae of regex syntax.</p>
+
+<p>It uses the <code>Regex</code> crate to compile the created regex strings.</p>
+
+<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<p>A simple example to show the usage:</p>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>verex</span>::<span class='ident'>Verex</span>;
+<span class='kw'>use</span> <span class='ident'>verex</span>::<span class='ident'>find</span>;
+
+    <span class='comment'>// You can either use a mutable Verex to define different regexes</span>
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>verex</span> <span class='op'>=</span> <span class='ident'>Verex</span>::<span class='ident'>new</span>();
+    <span class='kw'>let</span> <span class='ident'>regex1</span> <span class='op'>=</span> <span class='ident'>verex</span>.<span class='ident'>find</span>(<span class='string'>&quot;a&quot;</span>)
+                      .<span class='ident'>compile</span>()
+                      .<span class='ident'>unwrap</span>();
+
+    <span class='kw'>let</span> <span class='ident'>regex2</span> <span class='op'>=</span> <span class='ident'>verex</span>.<span class='ident'>or_find</span>(<span class='string'>&quot;b&quot;</span>)
+                      .<span class='ident'>compile</span>()
+                      .<span class='ident'>unwrap</span>();
+
+    <span class='comment'>// Or just use it for building one (you can use the funcitons directly as constructors)</span>
+    <span class='kw'>let</span> <span class='ident'>regex3</span> <span class='op'>=</span> <span class='ident'>find</span>(<span class='string'>&quot;a&quot;</span>) <span class='comment'>// or: Verex::new().find(&quot;a&quot;)</span>
+                 .<span class='ident'>or_find</span>(<span class='string'>&quot;b&quot;</span>)
+                 .<span class='ident'>compile</span>()
+                 .<span class='ident'>unwrap</span>();
+
+    <span class='comment'>// Test whether the regexes match correctly</span>
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>regex1</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;b&quot;</span>));
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex2</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;b&quot;</span>));
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex3</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;b&quot;</span>));
+
+    <span class='comment'>// Test the generated regex strings</span>
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>regex1</span>.<span class='ident'>as_str</span>(), <span class='string'>r&quot;(?:(?:a))&quot;</span>);
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>regex2</span>.<span class='ident'>as_str</span>(), <span class='string'>r&quot;(?:(?:a)|(?:b))&quot;</span>);
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>regex3</span>.<span class='ident'>as_str</span>(), <span class='string'>r&quot;(?:(?:a)|(?:b))&quot;</span>);</pre>
+
+<p>Here&#39;s a URL testing example shamelessly stolen from the python Verex readme:</p>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>verex</span>::<span class='ident'>start_of_line</span>;
+
+    <span class='comment'>// Create an example of how to test for correctly formed URLs</span>
+    <span class='kw'>let</span> <span class='ident'>verex</span> <span class='op'>=</span> <span class='ident'>start_of_line</span>()
+                .<span class='ident'>find</span>(<span class='string'>&quot;http&quot;</span>)
+                .<span class='ident'>maybe</span>(<span class='string'>&quot;s&quot;</span>)
+                .<span class='ident'>find</span>(<span class='string'>&quot;://&quot;</span>)
+                .<span class='ident'>maybe</span>(<span class='string'>&quot;www.&quot;</span>)
+                .<span class='ident'>anything_but</span>(<span class='string'>&quot; &quot;</span>)
+                .<span class='ident'>end_of_line</span>()
+                .<span class='ident'>clone</span>();
+    <span class='kw'>let</span> <span class='ident'>regex</span> <span class='op'>=</span> <span class='ident'>verex</span>.<span class='ident'>compile</span>().<span class='ident'>unwrap</span>();
+
+    <span class='comment'>// Create an example URL</span>
+    <span class='kw'>let</span> <span class='ident'>test_url</span> <span class='op'>=</span> <span class='string'>r&quot;https://www.google.com&quot;</span>;
+
+    <span class='comment'>// Test if the URL is valid</span>
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='ident'>test_url</span>));
+
+    <span class='comment'>// Test the generated regex string</span>
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>verex</span>.<span class='ident'>source</span>(), <span class='string'>r&quot;(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)&quot;</span>);</pre>
+
+<p>Example usage of the <code>or!</code> macro:</p>
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>macro_use</span>(<span class='ident'>or</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>verex</span>;
+
+    <span class='kw'>let</span> <span class='ident'>regex</span> <span class='op'>=</span> <span class='macro'>or</span><span class='macro'>!</span>(<span class='string'>&quot;foo&quot;</span>, <span class='string'>&quot;bar&quot;</span>, <span class='string'>&quot;baz&quot;</span>)
+                .<span class='ident'>compile</span>()
+                .<span class='ident'>unwrap</span>();
+
+    <span class='comment'>// Test if the regex matches correctly</span>
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;foo&quot;</span>));
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;bar&quot;</span>));
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;baz&quot;</span>));
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;bum&quot;</span>));
+
+    <span class='comment'>// Test the generated regex string</span>
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>as_str</span>(), <span class='string'>r&quot;(?:(?:foo)|(?:bar)|(?:baz))&quot;</span>);</pre>
+</div><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='macro' href='macro.or!.html'
+                               title='verex::or!'>or!</a></td>
+                        <td class='docblock short'>
+                             <p>Match any of the given sub-expressions</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.Verex.html'
+                               title='verex::Verex'>Verex</a></td>
+                        <td class='docblock short'>
+                             <p>The struct used for building verbal expression objects</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.any.html'
+                               title='verex::any'>any</a></td>
+                        <td class='docblock short'>
+                             <p>Any of the given characters</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.any_of.html'
+                               title='verex::any_of'>any_of</a></td>
+                        <td class='docblock short'>
+                             <p>See any()</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.anything.html'
+                               title='verex::anything'>anything</a></td>
+                        <td class='docblock short'>
+                             <p>Any character zero or more times</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.anything_but.html'
+                               title='verex::anything_but'>anything_but</a></td>
+                        <td class='docblock short'>
+                             <p>Any character zero or more times except the provided characters</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.br.html'
+                               title='verex::br'>br</a></td>
+                        <td class='docblock short'>
+                             <p>A line break!</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.capture.html'
+                               title='verex::capture'>capture</a></td>
+                        <td class='docblock short'>
+                             <p>Find a specific string and capture it</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.digit.html'
+                               title='verex::digit'>digit</a></td>
+                        <td class='docblock short'>
+                             <p>Add the token for matching digits</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.end_of_line.html'
+                               title='verex::end_of_line'>end_of_line</a></td>
+                        <td class='docblock short'>
+                             <p>Add a token for the end of a line</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.find.html'
+                               title='verex::find'>find</a></td>
+                        <td class='docblock short'>
+                             <p>Find a specific string</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.line_break.html'
+                               title='verex::line_break'>line_break</a></td>
+                        <td class='docblock short'>
+                             <p>A line break!</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.maybe.html'
+                               title='verex::maybe'>maybe</a></td>
+                        <td class='docblock short'>
+                             <p>Any string either one or zero times</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.range.html'
+                               title='verex::range'>range</a></td>
+                        <td class='docblock short'>
+                             <p>A range of characters e.g. [A-Z]
+Usage example: verex.range(vec![(&#39;a&#39;, &#39;z&#39;),(&#39;A&#39;, &#39;Z&#39;)])</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.search_one_line.html'
+                               title='verex::search_one_line'>search_one_line</a></td>
+                        <td class='docblock short'>
+                             <p>Toggle whether ^ and $ match line start and end or string start and end</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.something.html'
+                               title='verex::something'>something</a></td>
+                        <td class='docblock short'>
+                             <p>Any character at least one time</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.something_but.html'
+                               title='verex::something_but'>something_but</a></td>
+                        <td class='docblock short'>
+                             <p>Any character at least one time except for these characters</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.start_of_line.html'
+                               title='verex::start_of_line'>start_of_line</a></td>
+                        <td class='docblock short'>
+                             <p>Add a token for the start of a line</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.tab.html'
+                               title='verex::tab'>tab</a></td>
+                        <td class='docblock short'>
+                             <p>Add a token for a tab</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.with_any_case.html'
+                               title='verex::with_any_case'>with_any_case</a></td>
+                        <td class='docblock short'>
+                             <p>Toggle whether to match case-sensitively or not</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.word.html'
+                               title='verex::word'>word</a></td>
+                        <td class='docblock short'>
+                             <p>Any alphanumeric characters</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "verex";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>
