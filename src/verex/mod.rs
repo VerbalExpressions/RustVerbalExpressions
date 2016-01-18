@@ -34,13 +34,13 @@ impl Verex {
 
     /// Create a `Verex` object from a `String`
     pub fn from_string(string: String) -> Verex {
-        let mut Verex = Verex {
+        let mut verex = Verex {
             string: string,
             modifiers: Modifiers::new(),
             source: String::new()
         };
-        Verex.update_source_with_modifiers();
-        Verex
+        verex.update_source_with_modifiers();
+        verex
     }
 
     /// Create a `Verex` object from a `&str`
@@ -219,7 +219,7 @@ impl Verex {
     }
 
     /// A range of characters e.g. [A-Z]
-    /// Usage example: Verex.range(vec![('a', 'z'),('A', 'Z')])
+    /// Usage example: verex.range(vec![('a', 'z'),('A', 'Z')])
     pub fn range(&mut self, range: Vec<(char, char)>) -> &mut Verex {
         let mut string = r"[".to_string();
         for tuple in range {

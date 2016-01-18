@@ -8,18 +8,18 @@
 //! A simple example to show the usage:
 //!
 //! ```rust
-//! # extern crate Verex;
-//! use Verex::Verex;
-//! use Verex::find;
+//! # extern crate verex;
+//! use verex::Verex;
+//! use verex::find;
 //!
 //! # fn main() {
 //!     // You can either use a mutable Verex to define different regexes
-//!     let mut Verex = Verex::new();
-//!     let regex1 = Verex.find("a")
+//!     let mut verex = Verex::new();
+//!     let regex1 = verex.find("a")
 //!                       .compile()
 //!                       .unwrap();
 //!
-//!     let regex2 = Verex.or_find("b")
+//!     let regex2 = verex.or_find("b")
 //!                       .compile()
 //!                       .unwrap();
 //!
@@ -53,13 +53,13 @@
 //! Here's a URL testing example shamelessly stolen from the python Verex readme:
 //!
 //! ```rust
-//! # extern crate Verex;
-//! use Verex::Verex;
+//! # extern crate verex;
+//! use verex::Verex;
 //!
 //! # fn main() {
 //!     // Create an example of how to test for correctly formed URLs
-//!     let mut Verex = Verex::new();
-//!     let regex = Verex
+//!     let mut verex = Verex::new();
+//!     let regex = verex
 //!                 .start_of_line()
 //!                 .find("http")
 //!                 .maybe("s")
@@ -77,7 +77,7 @@
 //!     assert!(regex.is_match(test_url));
 //!
 //!     // Test the generated regex string
-//!     assert_eq!(Verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)");
+//!     assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)");
 //! # }
 //! ```
 //!
@@ -85,7 +85,7 @@
 //!
 //! ```rust
 //! #[macro_use(or)]
-//! extern crate Verex;
+//! extern crate verex;
 //!
 //! # fn main() {
 //!     let regex = or!("foo", "bar", "baz")
@@ -109,9 +109,9 @@
 extern crate bitflags;
 extern crate regex;
 
-pub use Verex::Verex;
+pub use verex::Verex;
 
-mod Verex;
+mod verex;
 
 // standalone functions
 /// Any of the given characters
@@ -174,18 +174,18 @@ pub fn maybe(value: &str) -> Verex {
 macro_rules! or {
     ( $first_string:expr, $( $string:expr ),* ) => {
         {
-            let mut Verex = $crate::Verex::new();
-            Verex.find($first_string);
+            let mut verex = $crate::Verex::new();
+            verex.find($first_string);
             $(
-                Verex.or_find($string);
+                verex.or_find($string);
             )*
-            Verex
+            verex
         }
     };
 }
 
 /// A range of characters e.g. [A-Z]
-/// Usage example: Verex.range(vec![('a', 'z'),('A', 'Z')])
+/// Usage example: verex.range(vec![('a', 'z'),('A', 'Z')])
 pub fn range(range: Vec<(char, char)>) -> Verex {
     Verex::new().range(range).clone()
 }
