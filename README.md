@@ -26,24 +26,24 @@ use verex::Verex;
 use verex::find;
 
 fn main() {
- // You can either use a mutable Verex to define different regexes
- let mut verex = Verex::new();
- let regex1 = verex.find("a")
-                   .compile()
-                   .unwrap();
- let regex2 = verex.or_find("b")
-                   .compile()
-                   .unwrap();
- // Or just use it for building one (you can use the functions directly as constructors)
- let regex3 = find("a") // or: Verex::new().find("a")
-              .or_find("b")
-              .compile()
-              .unwrap();
+    // You can either use a mutable Verex to define different regexes
+    let mut verex = Verex::new();
+    let regex1 = verex.find("a")
+                      .compile()
+                      .unwrap();
+    let regex2 = verex.or_find("b")
+                      .compile()
+                      .unwrap();
+    // Or just use it for building one (you can use the functions directly as constructors)
+    let regex3 = find("a") // or: Verex::new().find("a")
+                 .or_find("b")
+                 .compile()
+                 .unwrap();
 
- // Test whether the regexes match correctly
- assert!(!regex1.is_match("b"));
- assert!(regex2.is_match("b"));
- assert!(regex3.is_match("b"));
+    // Test whether the regexes match correctly
+    assert!(!regex1.is_match("b"));
+    assert!(regex2.is_match("b"));
+    assert!(regex3.is_match("b"));
 }
 ```
 

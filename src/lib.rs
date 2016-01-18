@@ -23,14 +23,8 @@
 //!                       .compile()
 //!                       .unwrap();
 //!
-//!     // Or just use it for building one
-//!     let regex3 = Verex::new().find("a")
-//!                              .or_find("b")
-//!                              .compile()
-//!                              .unwrap();
-//!
-//!     // Also you can just use the functions directly as constructors
-//!     let regex4 = find("a")
+//!     // Or just use it for building one (you can use the funcitons directly as constructors)
+//!     let regex3 = find("a") // or: Verex::new().find("a")
 //!                  .or_find("b")
 //!                  .compile()
 //!                  .unwrap();
@@ -39,13 +33,11 @@
 //!     assert!(!regex1.is_match("b"));
 //!     assert!(regex2.is_match("b"));
 //!     assert!(regex3.is_match("b"));
-//!     assert!(regex4.is_match("b"));
 //!
 //!     // Test the generated regex strings
 //!     assert_eq!(regex1.as_str(), r"(?:(?:a))");
 //!     assert_eq!(regex2.as_str(), r"(?:(?:a)|(?:b))");
 //!     assert_eq!(regex3.as_str(), r"(?:(?:a)|(?:b))");
-//!     assert_eq!(regex4.as_str(), r"(?:(?:a)|(?:b))");
 //! # }
 //! ```
 //!
@@ -54,21 +46,19 @@
 //!
 //! ```rust
 //! # extern crate verex;
-//! use verex::Verex;
+//! use verex::start_of_line;
 //!
 //! # fn main() {
 //!     // Create an example of how to test for correctly formed URLs
-//!     let mut verex = Verex::new();
-//!     let regex = verex
-//!                 .start_of_line()
+//!     let verex = start_of_line()
 //!                 .find("http")
 //!                 .maybe("s")
 //!                 .find("://")
 //!                 .maybe("www.")
 //!                 .anything_but(" ")
 //!                 .end_of_line()
-//!                 .compile()
-//!                 .unwrap();
+//!                 .clone();
+//!     let regex = verex.compile().unwrap();
 //!
 //!     // Create an example URL
 //!     let test_url = r"https://www.google.com";
@@ -81,7 +71,7 @@
 //! # }
 //! ```
 //!
-//! Example usage of the or! macro:
+//! Example usage of the `or!` macro:
 //!
 //! ```rust
 //! #[macro_use(or)]
