@@ -8,23 +8,23 @@
 //! A simple example to show the usage:
 //!
 //! ```rust
-//! # extern crate verex;
-//! use verex::VerEx;
-//! use verex::find;
+//! # extern crate Verex;
+//! use Verex::Verex;
+//! use Verex::find;
 //!
 //! # fn main() {
-//!     // You can either use a mutable verex to define different regexes
-//!     let mut verex = VerEx::new();
-//!     let regex1 = verex.find("a")
+//!     // You can either use a mutable Verex to define different regexes
+//!     let mut Verex = Verex::new();
+//!     let regex1 = Verex.find("a")
 //!                       .compile()
 //!                       .unwrap();
 //!
-//!     let regex2 = verex.or_find("b")
+//!     let regex2 = Verex.or_find("b")
 //!                       .compile()
 //!                       .unwrap();
 //!
 //!     // Or just use it for building one
-//!     let regex3 = VerEx::new().find("a")
+//!     let regex3 = Verex::new().find("a")
 //!                              .or_find("b")
 //!                              .compile()
 //!                              .unwrap();
@@ -50,16 +50,16 @@
 //! ```
 //!
 //!
-//! Here's a URL testing example shamelessly stolen from the python VerEx readme:
+//! Here's a URL testing example shamelessly stolen from the python Verex readme:
 //!
 //! ```rust
-//! # extern crate verex;
-//! use verex::VerEx;
+//! # extern crate Verex;
+//! use Verex::Verex;
 //!
 //! # fn main() {
 //!     // Create an example of how to test for correctly formed URLs
-//!     let mut verex = VerEx::new();
-//!     let regex = verex
+//!     let mut Verex = Verex::new();
+//!     let regex = Verex
 //!                 .start_of_line()
 //!                 .find("http")
 //!                 .maybe("s")
@@ -77,7 +77,7 @@
 //!     assert!(regex.is_match(test_url));
 //!
 //!     // Test the generated regex string
-//!     assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)");
+//!     assert_eq!(Verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)");
 //! # }
 //! ```
 //!
@@ -85,7 +85,7 @@
 //!
 //! ```rust
 //! #[macro_use(or)]
-//! extern crate verex;
+//! extern crate Verex;
 //!
 //! # fn main() {
 //!     let regex = or!("foo", "bar", "baz")
@@ -109,64 +109,64 @@
 extern crate bitflags;
 extern crate regex;
 
-pub use verex::VerEx;
+pub use Verex::Verex;
 
-mod verex;
+mod Verex;
 
 // standalone functions
 /// Any of the given characters
-pub fn any(chars: &str) -> VerEx {
-    VerEx::new().any(chars).clone()
+pub fn any(chars: &str) -> Verex {
+    Verex::new().any(chars).clone()
 }
 
 /// See any()
-pub fn any_of(chars: &str) -> VerEx {
+pub fn any_of(chars: &str) -> Verex {
     any(chars)
 }
 
 /// Any character zero or more times
-pub fn anything() -> VerEx {
-    VerEx::new().anything().clone()
+pub fn anything() -> Verex {
+    Verex::new().anything().clone()
 }
 
 /// Any character zero or more times except the provided characters
-pub fn anything_but(value: &str) -> VerEx {
-    VerEx::new().anything_but(value).clone()
+pub fn anything_but(value: &str) -> Verex {
+    Verex::new().anything_but(value).clone()
 }
 
 /// A line break!
-pub fn br() -> VerEx {
+pub fn br() -> Verex {
     line_break()
 }
 
 /// Find a specific string and capture it
-pub fn capture(value: &str) -> VerEx {
-    VerEx::new().capture(value).clone()
+pub fn capture(value: &str) -> Verex {
+    Verex::new().capture(value).clone()
 }
 
 /// Add the token for matching digits
-pub fn digit() -> VerEx {
-    VerEx::new().digit().clone()
+pub fn digit() -> Verex {
+    Verex::new().digit().clone()
 }
 
 /// Add a token for the end of a line
-pub fn end_of_line() -> VerEx {
-    VerEx::new().end_of_line().clone()
+pub fn end_of_line() -> Verex {
+    Verex::new().end_of_line().clone()
 }
 
 /// Find a specific string
-pub fn find(value: &str) -> VerEx {
-    VerEx::new().find(value).clone()
+pub fn find(value: &str) -> Verex {
+    Verex::new().find(value).clone()
 }
 
 /// A line break!
-pub fn line_break() -> VerEx {
-    VerEx::new().line_break().clone()
+pub fn line_break() -> Verex {
+    Verex::new().line_break().clone()
 }
 
 /// Any string either one or zero times
-pub fn maybe(value: &str) -> VerEx {
-    VerEx::new().maybe(value).clone()
+pub fn maybe(value: &str) -> Verex {
+    Verex::new().maybe(value).clone()
 }
 
 /// Match any of the given sub-expressions
@@ -174,53 +174,53 @@ pub fn maybe(value: &str) -> VerEx {
 macro_rules! or {
     ( $first_string:expr, $( $string:expr ),* ) => {
         {
-            let mut verex = $crate::VerEx::new();
-            verex.find($first_string);
+            let mut Verex = $crate::Verex::new();
+            Verex.find($first_string);
             $(
-                verex.or_find($string);
+                Verex.or_find($string);
             )*
-            verex
+            Verex
         }
     };
 }
 
 /// A range of characters e.g. [A-Z]
-/// Usage example: verex.range(vec![('a', 'z'),('A', 'Z')])
-pub fn range(range: Vec<(char, char)>) -> VerEx {
-    VerEx::new().range(range).clone()
+/// Usage example: Verex.range(vec![('a', 'z'),('A', 'Z')])
+pub fn range(range: Vec<(char, char)>) -> Verex {
+    Verex::new().range(range).clone()
 }
 
 /// Toggle whether ^ and $ match line start and end or string start and end
-pub fn search_one_line(enable: bool) -> VerEx {
-    VerEx::new().search_one_line(enable).clone()
+pub fn search_one_line(enable: bool) -> Verex {
+    Verex::new().search_one_line(enable).clone()
 }
 
 /// Any character at least one time
-pub fn something() -> VerEx {
-    VerEx::new().something().clone()
+pub fn something() -> Verex {
+    Verex::new().something().clone()
 }
 
 /// Any character at least one time except for these characters
-pub fn something_but(value: &str) -> VerEx {
-    VerEx::new().something_but(value).clone()
+pub fn something_but(value: &str) -> Verex {
+    Verex::new().something_but(value).clone()
 }
 
 /// Add a token for the start of a line
-pub fn start_of_line() -> VerEx {
-    VerEx::new().start_of_line().clone()
+pub fn start_of_line() -> Verex {
+    Verex::new().start_of_line().clone()
 }
 
 /// Add a token for a tab
-pub fn tab() -> VerEx {
-    VerEx::new().tab().clone()
+pub fn tab() -> Verex {
+    Verex::new().tab().clone()
 }
 
 /// Toggle whether to match case-sensitively or not
-pub fn with_any_case(enable: bool) -> VerEx {
-    VerEx::new().with_any_case(enable).clone()
+pub fn with_any_case(enable: bool) -> Verex {
+    Verex::new().with_any_case(enable).clone()
 }
 
 /// Any alphanumeric characters
-pub fn word() -> VerEx {
-    VerEx::new().word().clone()
+pub fn word() -> Verex {
+    Verex::new().word().clone()
 }

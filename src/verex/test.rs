@@ -1,46 +1,46 @@
-use verex::VerEx;
+use Verex::Verex;
 
-const A_VEREX_STRING: &'static str = r"(?:a)";
+const A_Verex_STRING: &'static str = r"(?:a)";
 
 #[test]
 fn test_constructors() {
-    let verex1: VerEx = VerEx::new();
-    assert_eq!(verex1.source(), r"(?:)");
+    let Verex1: Verex = Verex::new();
+    assert_eq!(Verex1.source(), r"(?:)");
 
-    let verex2: VerEx = VerEx::from_string(r"a".to_string());
-    assert_eq!(verex2.source(), A_VEREX_STRING);
+    let Verex2: Verex = Verex::from_string(r"a".to_string());
+    assert_eq!(Verex2.source(), A_Verex_STRING);
 
-    let verex3: VerEx = VerEx::from_str(r"a");
-    assert_eq!(verex3.source(), A_VEREX_STRING);
+    let Verex3: Verex = Verex::from_str(r"a");
+    assert_eq!(Verex3.source(), A_Verex_STRING);
 }
 
 #[test]
 fn test_add() {
-    let mut verex: VerEx = VerEx::new();
-    verex.add(r"a");
-    verex.update_source_with_modifiers();
-    assert_eq!(verex.source(), A_VEREX_STRING);
+    let mut Verex: Verex = Verex::new();
+    Verex.add(r"a");
+    Verex.update_source_with_modifiers();
+    assert_eq!(Verex.source(), A_Verex_STRING);
 }
 
 #[test]
 fn test_compile_regex() {
-    let mut verex: VerEx = VerEx::new();
-    verex.find(r"a");
+    let mut Verex: Verex = Verex::new();
+    Verex.find(r"a");
 
-    let regex1 = verex.compile().unwrap();
+    let regex1 = Verex.compile().unwrap();
     assert!(regex1.is_match(r"a"));
 
-    let regex2 = verex.regex().unwrap();
+    let regex2 = Verex.regex().unwrap();
     assert!(regex2.is_match(r"a"));
 }
 
 #[test]
 fn test_i_modifier() {
-    let mut verex = VerEx::from_str(r"a");
-    verex.with_any_case(true);
-    assert_eq!(verex.source(), r"(?i:a)");
+    let mut Verex = Verex::from_str(r"a");
+    Verex.with_any_case(true);
+    assert_eq!(Verex.source(), r"(?i:a)");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(regex.is_match(r"a"));
     assert!(regex.is_match(r"A"));
     assert!(!regex.is_match(r"b"));
@@ -48,15 +48,15 @@ fn test_i_modifier() {
 
 #[test]
 fn test_m_modifier() {
-    let verex = VerEx::new()
+    let Verex = Verex::new()
                    .start_of_line()
                    .find(r"a")
                    .end_of_line()
                    .search_one_line(false)
                    .clone();
-    assert_eq!(verex.source(), r"(?m:^(?:a)$)");
+    assert_eq!(Verex.source(), r"(?m:^(?:a)$)");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(regex.is_match(r"a"));
     assert!(!regex.is_match(r"aa"));
     assert!(regex.is_match("a\n"));
@@ -65,26 +65,26 @@ fn test_m_modifier() {
 
 #[test]
 fn test_source_and_raw_and_value() {
-    let verex: VerEx = VerEx::from_str(r"a");
-    assert_eq!(verex.source(), A_VEREX_STRING);
-    assert_eq!(verex.raw(), A_VEREX_STRING);
-    assert_eq!(verex.value(), A_VEREX_STRING);
+    let Verex: Verex = Verex::from_str(r"a");
+    assert_eq!(Verex.source(), A_Verex_STRING);
+    assert_eq!(Verex.raw(), A_Verex_STRING);
+    assert_eq!(Verex.value(), A_Verex_STRING);
 }
 
 #[test]
 fn test_any_and_any_of() {
-    let mut verex1: VerEx = VerEx::new();
-    verex1.any(r"ab");
+    let mut Verex1: Verex = Verex::new();
+    Verex1.any(r"ab");
 
-    let regex1 = verex1.compile().unwrap();
+    let regex1 = Verex1.compile().unwrap();
     assert!(regex1.is_match(r"a"));
     assert!(regex1.is_match(r"b"));
     assert!(!regex1.is_match(r"c"));
 
-    let mut verex2: VerEx = VerEx::new();
-    verex2.any_of(r"ab");
+    let mut Verex2: Verex = Verex::new();
+    Verex2.any_of(r"ab");
 
-    let regex2 = verex2.compile().unwrap();
+    let regex2 = Verex2.compile().unwrap();
     assert!(regex2.is_match(r"a"));
     assert!(regex2.is_match(r"b"));
     assert!(!regex2.is_match(r"c"));
@@ -92,24 +92,24 @@ fn test_any_and_any_of() {
 
 #[test]
 fn test_anything() {
-    let mut verex: VerEx = VerEx::new();
-    verex.anything();
-    assert_eq!(verex.source(), r"(?:(.*))");
+    let mut Verex: Verex = Verex::new();
+    Verex.anything();
+    assert_eq!(Verex.source(), r"(?:(.*))");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(regex.is_match(r""));
     assert!(regex.is_match(r"foobar"));
 }
 
 #[test]
 fn test_anything_but() {
-    let mut verex: VerEx = VerEx::new();
-    verex.start_of_line()
+    let mut Verex: Verex = Verex::new();
+    Verex.start_of_line()
          .anything_but("foo")
          .end_of_line();
-    assert_eq!(verex.source(), r"(?:^(?:[^foo]*)$)");
+    assert_eq!(Verex.source(), r"(?:^(?:[^foo]*)$)");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(regex.is_match(r""));
     assert!(regex.is_match(r"bar"));
     assert!(!regex.is_match(r"foo"));
@@ -119,10 +119,10 @@ fn test_anything_but() {
 
 #[test]
 fn test_digit() {
-    let verex = VerEx::new().digit().clone();
-    assert_eq!(verex.source(), r"(?:\d)");
+    let Verex = Verex::new().digit().clone();
+    assert_eq!(Verex.source(), r"(?:\d)");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(regex.is_match(r"0"));
     assert!(regex.is_match(r"1"));
     assert!(regex.is_match(r"3"));
@@ -134,22 +134,22 @@ fn test_digit() {
 
 #[test]
 fn test_find_and_then() {
-    let mut verex: VerEx = VerEx::new();
-    verex.find("foo");
-    assert_eq!(verex.source(), r"(?:(?:foo))");
+    let mut Verex: Verex = Verex::new();
+    Verex.find("foo");
+    assert_eq!(Verex.source(), r"(?:(?:foo))");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(!regex.is_match(r"bar"));
     assert!(regex.is_match(r"foo"));
     assert!(regex.is_match(r"foofoo"));
     assert!(regex.is_match(r"barfoo"));
 
     // same as find
-    let mut verex2: VerEx = VerEx::new();
-    verex2.then("foo");
-    assert_eq!(verex2.source(), r"(?:(?:foo))");
+    let mut Verex2: Verex = Verex::new();
+    Verex2.then("foo");
+    assert_eq!(Verex2.source(), r"(?:(?:foo))");
 
-    let regex2 = verex2.compile().unwrap();
+    let regex2 = Verex2.compile().unwrap();
     assert!(!regex2.is_match(r"bar"));
     assert!(regex2.is_match(r"foo"));
     assert!(regex2.is_match(r"foofoo"));
@@ -158,12 +158,12 @@ fn test_find_and_then() {
 
 #[test]
 fn test_find_chained() {
-    let mut verex: VerEx = VerEx::new();
-    verex.find("foo")
+    let mut Verex: Verex = Verex::new();
+    Verex.find("foo")
          .then("bar");
-    assert_eq!(verex.source(), r"(?:(?:foo)(?:bar))");
+    assert_eq!(Verex.source(), r"(?:(?:foo)(?:bar))");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(!regex.is_match(r"bar"));
     assert!(!regex.is_match(r"foo"));
     assert!(!regex.is_match(r"barfoo"));
@@ -172,13 +172,13 @@ fn test_find_chained() {
 
 #[test]
 fn test_maybe() {
-    let mut verex: VerEx = VerEx::new();
-    verex.start_of_line()
+    let mut Verex: Verex = Verex::new();
+    Verex.start_of_line()
          .maybe(r"a")
          .end_of_line();
-    assert_eq!(verex.source(), r"(?:^(?:a)?$)");
+    assert_eq!(Verex.source(), r"(?:^(?:a)?$)");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(regex.is_match(r""));
     assert!(regex.is_match(r"a"));
     assert!(!regex.is_match(r"foo"));
@@ -186,23 +186,23 @@ fn test_maybe() {
 
 #[test]
 fn test_or_and_or_find() {
-    let mut verex1 = VerEx::new();
-    verex1.find(r"a")
+    let mut Verex1 = Verex::new();
+    Verex1.find(r"a")
           .or()
           .find(r"b");
-    assert_eq!(verex1.source(), r"(?:(?:a)|(?:b))");
+    assert_eq!(Verex1.source(), r"(?:(?:a)|(?:b))");
 
-    let regex1 = verex1.compile().unwrap();
+    let regex1 = Verex1.compile().unwrap();
     assert!(regex1.is_match(r"a"));
     assert!(regex1.is_match(r"b"));
     assert!(!regex1.is_match(r"z"));
 
-    let mut verex2 = VerEx::new();
-    verex2.find(r"a")
+    let mut Verex2 = Verex::new();
+    Verex2.find(r"a")
           .or_find(r"b");
-    assert_eq!(verex2.source(), r"(?:(?:a)|(?:b))");
+    assert_eq!(Verex2.source(), r"(?:(?:a)|(?:b))");
 
-    let regex2 = verex2.compile().unwrap();
+    let regex2 = Verex2.compile().unwrap();
     assert!(regex2.is_match(r"a"));
     assert!(regex2.is_match(r"b"));
     assert!(!regex2.is_match(r"z"));
@@ -210,11 +210,11 @@ fn test_or_and_or_find() {
 
 #[test]
 fn test_range() {
-    let mut verex = VerEx::new();
-    verex.range(vec![('a', 'z')]);
-    assert_eq!(verex.source(), r"(?:[a-z])");
+    let mut Verex = Verex::new();
+    Verex.range(vec![('a', 'z')]);
+    assert_eq!(Verex.source(), r"(?:[a-z])");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(regex.is_match(r"a"));
     assert!(regex.is_match(r"b"));
     assert!(regex.is_match(r"h"));
@@ -226,31 +226,31 @@ fn test_range() {
 
 #[test]
 fn test_replace() {
-    let verex = VerEx::from_str(r"r");
-    let replaced = verex.replace(r"foobar", r"z").unwrap();
+    let Verex = Verex::from_str(r"r");
+    let replaced = Verex.replace(r"foobar", r"z").unwrap();
     assert_eq!(replaced, r"foobaz");
 }
 
 #[test]
 fn test_something() {
-    let mut verex: VerEx = VerEx::new();
-    verex.something();
-    assert_eq!(verex.source(), r"(?:(.+))");
+    let mut Verex: Verex = Verex::new();
+    Verex.something();
+    assert_eq!(Verex.source(), r"(?:(.+))");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(!regex.is_match(r""));
     assert!(regex.is_match(r"foobar"));
 }
 
 #[test]
 fn test_someting_but() {
-    let mut verex: VerEx = VerEx::new();
-    verex.start_of_line()
+    let mut Verex: Verex = Verex::new();
+    Verex.start_of_line()
          .something_but("foo")
          .end_of_line();
-    assert_eq!(verex.source(), r"(?:^(?:[^foo]+)$)");
+    assert_eq!(Verex.source(), r"(?:^(?:[^foo]+)$)");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(!regex.is_match(r""));
     assert!(regex.is_match(r"bar"));
     assert!(!regex.is_match(r"foo"));
@@ -260,11 +260,11 @@ fn test_someting_but() {
 
 #[test]
 fn test_word() {
-    let mut verex = VerEx::new();
-    verex.word();
-    assert_eq!(verex.source(), r"(?:(?:\w+))");
+    let mut Verex = Verex::new();
+    Verex.word();
+    assert_eq!(Verex.source(), r"(?:(?:\w+))");
 
-    let regex = verex.compile().unwrap();
+    let regex = Verex.compile().unwrap();
     assert!(regex.is_match(r"word"));
     assert!(regex.is_match(r"w0rd"));
     assert!(!regex.is_match(r"./"));
