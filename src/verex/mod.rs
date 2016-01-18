@@ -3,26 +3,44 @@ use regex::Error;
 
 #[cfg(test)] pub mod test;
 
+bitflags! {
+    flags Modifiers: u8 {
+        const MULTI_LINE        = 0b00000001,
+        const CASE_INSENSITIVE    = 0b00000010,
+    }
+}
+
+/// The struct used for keeping track of the modifiers
+impl Modifiers {
+    pub fn new() -> Modifiers {
+        Modifiers::empty()
+    }
+}
+
 /// The struct used for building verbal expression objects
 #[derive(Debug, Clone)]
 pub struct VerEx {
-    string: String
+    string: String,
+    modifiers: Modifiers,
+    source: String
 }
 
 impl VerEx {
     // constructors
     /// Standard Constructor
     pub fn new() -> VerEx {
-        VerEx {
-            string: String::new(),
-        }
+        VerEx::from_string(String::new())
     }
 
     /// Create a `VerEx` object from a `String`
     pub fn from_string(string: String) -> VerEx {
-        VerEx {
+        let mut verex = VerEx {
             string: string,
-        }
+            modifiers: Modifiers::new(),
+            source: String::new()
+        };
+        verex.update_source_with_modifiers();
+        verex
     }
 
     /// Create a `VerEx` object from a `&str`
@@ -33,14 +51,30 @@ impl VerEx {
     // --------------------------------------------------
     // fundamental methods
     /// Add a string to the regex string in the `VerEx` and return self
-    pub fn add(&mut self, value: &str) -> &mut VerEx{
+    pub fn add(&mut self, value: &str) -> &mut VerEx {
         self.string.push_str(value);
+        self
+    }
+
+    /// Update the source string from the (presumably changed) builder string
+    pub fn update_source_with_modifiers(&mut self) -> &mut VerEx {
+        self.source.clear();
+        self.source.push_str(r"(?");
+        if self.modifiers.contains(CASE_INSENSITIVE) {
+            self.source.push('i');
+        }
+        if self.modifiers.contains(MULTI_LINE) {
+            self.source.push('m');
+        }
+        self.source.push(':');
+        self.source.push_str(self.string.as_ref());
+        self.source.push(')');
         self
     }
 
     /// Compile the `VerEx` to a `Regex` and return the result
     pub fn compile(& self) -> Result<Regex, Error> {
-        Regex::new(self.string.as_ref())
+        Regex::new(self.source.as_ref())
     }
 
     /// Return the raw regex string contained in the `VerEx`
@@ -55,7 +89,7 @@ impl VerEx {
 
     /// Return the raw regex string contained in the `VerEx`
     pub fn source(& self) -> &str {
-        self.string.as_ref()
+        self.source.as_ref()
     }
 
     /// Return the raw regex string contained in the `VerEx`
@@ -94,17 +128,19 @@ impl VerEx {
     pub fn any(&mut self, chars: &str) -> &mut VerEx {
         self.open_class()
             .add(chars)
-            .close_class()
+            .close_class();
+        self.update_source_with_modifiers()
     }
 
-    /// See any()
+    /// See `any()`
     pub fn any_of(&mut self, chars: &str) -> &mut VerEx {
         self.any(chars)
     }
 
     /// Any character zero or more times
     pub fn anything(&mut self) -> &mut VerEx {
-        self.add(r"(.*)")
+        self.add(r"(.*)");
+        self.update_source_with_modifiers()
     }
 
     /// Any character zero or more times except the provided characters
@@ -115,7 +151,8 @@ impl VerEx {
             .add(value)
             .close_class()
             .add(r"*")
-            .close_group()
+            .close_group();
+        self.update_source_with_modifiers()
     }
 
     /// A line break!
@@ -127,24 +164,28 @@ impl VerEx {
     pub fn capture(&mut self, value: &str) -> &mut VerEx {
         self.open_capturing_group()
             .add(value)
-            .close_group()
+            .close_group();
+        self.update_source_with_modifiers()
     }
 
     /// Add the token for matching digits
     pub fn digit(&mut self) -> &mut VerEx {
-        self.add(r"\d")
+        self.add(r"\d");
+        self.update_source_with_modifiers()
     }
 
     /// Add a token for matching the end of a line
     pub fn end_of_line(&mut self) -> &mut VerEx {
-        self.add(r"$")
+        self.add(r"$");
+        self.update_source_with_modifiers()
     }
 
     /// Find a specific string
     pub fn find(&mut self, value: &str) -> &mut VerEx {
         self.open_group()
             .add(value)
-            .close_group()
+            .close_group();
+        self.update_source_with_modifiers()
     }
 
     /// A line break!
@@ -152,7 +193,8 @@ impl VerEx {
         self.open_group()
             .add(r"\n")
             .or_find(r"\r\n")
-            .close_group()
+            .close_group();
+        self.update_source_with_modifiers()
     }
 
     /// Any string either one or zero times
@@ -160,12 +202,14 @@ impl VerEx {
         self.open_group()
             .add(value)
             .close_group()
-            .add(r"?")
+            .add(r"?");
+        self.update_source_with_modifiers()
     }
 
     /// Either match the sub-expression before or after this
     pub fn or(&mut self) -> &mut VerEx {
-        self.add(r"|")
+        self.add(r"|");
+        self.update_source_with_modifiers()
     }
 
     /// Either match the sub-expression before or the provided value
@@ -186,18 +230,31 @@ impl VerEx {
             string.push(to);
         }
         string.push(']');
-        self.add(string.as_ref())
+        self.add(string.as_ref());
+        self.update_source_with_modifiers()
     }
 
     /// Replace a substring
     pub fn replace(&mut self, from: &str, to: &str) -> &mut VerEx {
         self.string = self.string.replace(from, to);
-        self
+        self.update_source_with_modifiers()
+    }
+
+    /// Toggle whether ^ and $ match line start and end or string start and end
+    pub fn search_one_line(&mut self, enable: bool) -> &mut VerEx {
+        if enable {
+            self.modifiers.remove(MULTI_LINE);
+        }
+        else {
+            self.modifiers.insert(MULTI_LINE);
+        }
+        self.update_source_with_modifiers()
     }
 
     /// Any character at least one time
     pub fn something(&mut self) -> &mut VerEx {
-        self.add(r"(.+)")
+        self.add(r"(.+)");
+        self.update_source_with_modifiers()
     }
 
     /// Any character at least one time except for these characters
@@ -208,22 +265,36 @@ impl VerEx {
             .add(value)
             .close_class()
             .add(r"+")
-            .close_group()
+            .close_group();
+        self.update_source_with_modifiers()
     }
 
     /// Add a token for the start of a line
     pub fn start_of_line(&mut self) -> &mut VerEx {
-        self.add(r"^")
+        self.add(r"^");
+        self.update_source_with_modifiers()
     }
 
     /// Add a token for a tab
     pub fn tab(&mut self) -> &mut VerEx {
-        self.add(r"\t")
+        self.add(r"\t");
+        self.update_source_with_modifiers()
     }
 
     /// To use find "in the sentence" and make the chaining flow better
     pub fn then(&mut self, value: &str) -> &mut VerEx {
         self.find(value)
+    }
+
+    /// Toggle whether to match case-sensitively or not
+    pub fn with_any_case(&mut self, enable: bool) -> &mut VerEx {
+        if enable {
+            self.modifiers.insert(CASE_INSENSITIVE);
+        }
+        else {
+            self.modifiers.remove(CASE_INSENSITIVE);
+        }
+        self.update_source_with_modifiers()
     }
 
     /// Any alphanumeric characters

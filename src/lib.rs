@@ -42,10 +42,10 @@
 //!     assert!(regex4.is_match("b"));
 //!
 //!     // Test the generated regex strings
-//!     assert_eq!(regex1.as_str(), r"(?:a)");
-//!     assert_eq!(regex2.as_str(), r"(?:a)|(?:b)");
-//!     assert_eq!(regex3.as_str(), r"(?:a)|(?:b)");
-//!     assert_eq!(regex4.as_str(), r"(?:a)|(?:b)");
+//!     assert_eq!(regex1.as_str(), r"(?:(?:a))");
+//!     assert_eq!(regex2.as_str(), r"(?:(?:a)|(?:b))");
+//!     assert_eq!(regex3.as_str(), r"(?:(?:a)|(?:b))");
+//!     assert_eq!(regex4.as_str(), r"(?:(?:a)|(?:b))");
 //! # }
 //! ```
 //!
@@ -77,7 +77,7 @@
 //!     assert!(regex.is_match(test_url));
 //!
 //!     // Test the generated regex string
-//!     assert_eq!(verex.source(), r"^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$");
+//!     assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)");
 //! # }
 //! ```
 //!
@@ -99,12 +99,14 @@
 //!     assert!(!regex.is_match("bum"));
 //!
 //!     // Test the generated regex string
-//!     assert_eq!(regex.as_str(), r"(?:foo)|(?:bar)|(?:baz)");
+//!     assert_eq!(regex.as_str(), r"(?:(?:foo)|(?:bar)|(?:baz))");
 //! # }
 //! ```
 
 #![warn(missing_docs)]
 
+#[macro_use]
+extern crate bitflags;
 extern crate regex;
 
 pub use verex::VerEx;
@@ -188,6 +190,11 @@ pub fn range(range: Vec<(char, char)>) -> VerEx {
     VerEx::new().range(range).clone()
 }
 
+/// Toggle whether ^ and $ match line start and end or string start and end
+pub fn search_one_line(enable: bool) -> VerEx {
+    VerEx::new().search_one_line(enable).clone()
+}
+
 /// Any character at least one time
 pub fn something() -> VerEx {
     VerEx::new().something().clone()
@@ -206,6 +213,11 @@ pub fn start_of_line() -> VerEx {
 /// Add a token for a tab
 pub fn tab() -> VerEx {
     VerEx::new().tab().clone()
+}
+
+/// Toggle whether to match case-sensitively or not
+pub fn with_any_case(enable: bool) -> VerEx {
+    VerEx::new().with_any_case(enable).clone()
 }
 
 /// Any alphanumeric characters
