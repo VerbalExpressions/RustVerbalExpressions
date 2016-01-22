@@ -104,7 +104,7 @@
 //! use regex::Regex;
 //!
 //! # fn main() {
-//!     let sub_verex = Verex::from_str("Darth(Vader)?");
+//!     let sub_verex = Verex::from_str("Darth(Vader)*?");
 //!     let sub_regex = Regex::new("(?P<robot>C3PO)").unwrap();
 //!     let regex = or_expr!(
 //!                     E::String("([RD]2){2}"),
@@ -120,7 +120,7 @@
 //!     assert!(!regex.is_match("Anakin"));
 //!
 //!     // Test the generated regex string
-//!     assert_eq!(regex.as_str(), r"(?:(?:([RD]2){2})|(?:(?:Darth(Vader)?))|(?:(?P<robot>C3PO)))");
+//!     assert_eq!(regex.as_str(), r"(?:(?:([RD]2){2})|(?:(?:Darth(Vader)*?))|(?:(?P<robot>C3PO)))");
 //! # }
 //! ```
 
