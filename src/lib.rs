@@ -92,6 +92,37 @@
 //!     assert_eq!(regex.as_str(), r"(?:(?:foo)|(?:bar)|(?:baz))");
 //! # }
 //! ```
+//!
+//! Example usage of the `or_expr!` macro:
+//!
+//! ```rust
+//! #[macro_use(or_expr)]
+//! extern crate verex;
+//! extern crate regex;
+//! use verex::Expression as E;
+//! use verex::Verex;
+//! use regex::Regex;
+//!
+//! # fn main() {
+//!     let sub_verex = Verex::from_str("Darth(Vader)?");
+//!     let sub_regex = Regex::new("(?P<robot>C3PO)").unwrap();
+//!     let regex = or_expr!(
+//!                     E::String("([RD]2){2}"),
+//!                     E::Verex(&sub_verex),
+//!                     E::Regex(&sub_regex))
+//!                 .compile()
+//!                 .unwrap();
+//!
+//!     // Test if the regex matches correctly
+//!     assert!(regex.is_match("R2D2"));
+//!     assert!(regex.is_match("Darth"));
+//!     assert!(regex.is_match("C3PO"));
+//!     assert!(!regex.is_match("Anakin"));
+//!
+//!     // Test the generated regex string
+//!     assert_eq!(regex.as_str(), r"(?:(?:([RD]2){2})|(?:(?:Darth(Vader)?))|(?:(?P<robot>C3PO)))");
+//! # }
+//! ```
 
 #![warn(missing_docs)]
 
@@ -175,7 +206,7 @@ pub fn maybe_expr(expr: Expression) -> Verex {
     Verex::new().maybe_expr(expr).clone()
 }
 
-/// Match any of the given sub-expressions
+/// Match any of the given values
 #[macro_export]
 macro_rules! or {
     ( $first_string:expr, $( $string:expr ),* ) => {
@@ -184,6 +215,21 @@ macro_rules! or {
             verex.find($first_string);
             $(
                 verex.or_find($string);
+            )*
+            verex
+        }
+    };
+}
+
+/// Match any of the given sub-expressions
+#[macro_export]
+macro_rules! or_expr {
+    ( $first_e:expr, $( $e:expr ),* ) => {
+        {
+            let mut verex = $crate::Verex::new();
+            verex.find_expr($first_e);
+            $(
+                verex.or_find_expr($e);
             )*
             verex
         }
