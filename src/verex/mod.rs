@@ -6,7 +6,7 @@ use regex::Error;
 bitflags! {
     flags Modifiers: u8 {
         const MULTI_LINE        = 0b00000001,
-        const CASE_INSENSITIVE    = 0b00000010,
+        const CASE_INSENSITIVE  = 0b00000010,
     }
 }
 
@@ -15,6 +15,54 @@ impl Modifiers {
     pub fn new() -> Modifiers {
         Modifiers::empty()
     }
+}
+
+/// The enum used to have common functions for different Types
+pub enum Expression<'e> {
+    /// The variant for handing over a String reference
+    String(&'e str),
+    /// The variant for handing over a Verex reference
+    Verex(&'e Verex),
+    /// The variant for handing over a Regex reference
+    Regex(&'e Regex)
+}
+
+macro_rules! match_expr {
+    ( $e:expr, $this:expr, $method:ident ) => {
+        {
+            match $e {
+                Expression::String(x) => { $this.$method(x) },
+                Expression::Verex(x) => { $this.$method(x.source()) },
+                Expression::Regex(x) => { $this.$method(x.as_str()) },
+            }
+        }
+    }
+}
+
+const ESCAPE_PAIRS: [(&'static str, &'static str); 14] = [
+    (r"(?P<back_slash>\\)", "\\$back_slash"),
+    (r"(?P<open_group>\()", "\\$open_group"),
+    (r"(?P<close_group>\))", "\\$close_group"),
+    (r"(?P<open_class>\[)", "\\$open_class"),
+    (r"(?P<close_class>\])", "\\$close_class"),
+    (r"(?P<open_quantifier>\{)", "\\$open_quantifier"),
+    (r"(?P<close_quantifier>\})", "\\$close_quantifier"),
+    (r"(?P<dot>\.)", "\\$dot"),
+    (r"(?P<plus>\+)", "\\$plus"),
+    (r"(?P<star>\*)", "\\$star"),
+    (r"(?P<question_mark>\?)", "\\$question_mark"),
+    (r"(?P<circumflex>\^)", "\\$circumflex"),
+    (r"(?P<dollar>\$)", "\\$dollar"),
+    (r"(?P<pipe>\|)", "\\$pipe"),
+];
+
+fn escape(string: &str) -> String {
+    let mut result = string.to_string();
+    for pair in ESCAPE_PAIRS.into_iter() {
+        let regex = Regex::new(pair.0).unwrap();
+        result = regex.replace_all(result.as_ref(), pair.1);
+    }
+    result
 }
 
 /// The struct used for building verbal expression objects
@@ -127,7 +175,7 @@ impl Verex {
     /// Any of the given characters
     pub fn any(&mut self, chars: &str) -> &mut Verex {
         self.open_class()
-            .add(chars)
+            .add(escape(chars).as_ref())
             .close_class();
         self.update_source_with_modifiers()
     }
@@ -144,11 +192,11 @@ impl Verex {
     }
 
     /// Any character zero or more times except the provided characters
-    pub fn anything_but(&mut self, value: &str) -> &mut Verex {
+    pub fn anything_but(&mut self, chars: &str) -> &mut Verex {
         self.open_group()
             .open_class()
             .add(r"^")
-            .add(value)
+            .add(escape(chars).as_ref())
             .close_class()
             .add(r"*")
             .close_group();
@@ -160,12 +208,22 @@ impl Verex {
         self.line_break()
     }
 
-    /// Find a specific string and capture it
-    pub fn capture(&mut self, value: &str) -> &mut Verex {
+    /// Find a specific value and capture it
+    fn capture_value(&mut self, value: &str) -> &mut Verex {
         self.open_capturing_group()
             .add(value)
             .close_group();
         self.update_source_with_modifiers()
+    }
+
+    /// Find a specific string and capture it (will be escaped)
+    pub fn capture(&mut self, value: &str) -> &mut Verex {
+        self.capture_value(escape(value).as_ref())
+    }
+
+    /// Find a specific string and capture it
+    pub fn capture_expr(&mut self, expr: Expression) -> &mut Verex {
+        match_expr!(expr, self, capture_value)
     }
 
     /// Add the token for matching digits
@@ -180,30 +238,50 @@ impl Verex {
         self.update_source_with_modifiers()
     }
 
-    /// Find a specific string
-    pub fn find(&mut self, value: &str) -> &mut Verex {
+    /// Find a value
+    fn find_value(&mut self, value: &str) -> &mut Verex {
         self.open_group()
             .add(value)
             .close_group();
         self.update_source_with_modifiers()
+    }
+
+    /// Find a specific string that will be escaped
+    pub fn find(&mut self, value: &str) -> &mut Verex {
+        self.find_value(escape(value).as_ref())
+    }
+
+    /// Find an expression (does not get escaped)
+    pub fn find_expr(&mut self, expr: Expression) -> &mut Verex {
+        match_expr!(expr, self, find_value)
     }
 
     /// A line break!
     pub fn line_break(&mut self) -> &mut Verex {
         self.open_group()
             .add(r"\n")
-            .or_find(r"\r\n")
+            .or_find_expr(Expression::String(r"\r\n"))
             .close_group();
         self.update_source_with_modifiers()
     }
 
     /// Any string either one or zero times
-    pub fn maybe(&mut self, value: &str) -> &mut Verex {
+    fn maybe_value(&mut self, value: &str) -> &mut Verex {
         self.open_group()
             .add(value)
             .close_group()
             .add(r"?");
         self.update_source_with_modifiers()
+    }
+
+    /// Any string either one or zero times
+    pub fn maybe(&mut self, value: &str) -> &mut Verex {
+        self.maybe_value(escape(value).as_ref())
+    }
+
+    /// Any string either one or zero times
+    pub fn maybe_expr(&mut self, expr: Expression) -> &mut Verex {
+        match_expr!(expr, self, maybe_value)
     }
 
     /// Either match the sub-expression before or after this
@@ -216,6 +294,12 @@ impl Verex {
     pub fn or_find(&mut self, value: &str) -> &mut Verex {
         self.or()
             .find(value)
+    }
+
+    /// Either match the sub-expression before or the provided sub-expression
+    pub fn or_find_expr(&mut self, expr: Expression) -> &mut Verex {
+        self.or()
+            .find_expr(expr)
     }
 
     /// A range of characters e.g. [A-Z]
@@ -258,11 +342,11 @@ impl Verex {
     }
 
     /// Any character at least one time except for these characters
-    pub fn something_but(&mut self, value: &str) -> &mut Verex {
+    pub fn something_but(&mut self, chars: &str) -> &mut Verex {
         self.open_group()
             .open_class()
             .add(r"^")
-            .add(value)
+            .add(escape(chars).as_ref())
             .close_class()
             .add(r"+")
             .close_group();
@@ -299,7 +383,7 @@ impl Verex {
 
     /// Any alphanumeric characters
     pub fn word(&mut self) -> &mut Verex {
-        self.find(r"\w+")
+        self.find_expr(Expression::String(r"\w+"))
     }
 }
 

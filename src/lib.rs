@@ -67,7 +67,7 @@
 //!     assert!(regex.is_match(test_url));
 //!
 //!     // Test the generated regex string
-//!     assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)");
+//!     assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www\.)?(?:[^ ]*)$)");
 //! # }
 //! ```
 //!
@@ -100,6 +100,7 @@ extern crate bitflags;
 extern crate regex;
 
 pub use verex::Verex;
+pub use verex::Expression;
 
 mod verex;
 
@@ -120,8 +121,8 @@ pub fn anything() -> Verex {
 }
 
 /// Any character zero or more times except the provided characters
-pub fn anything_but(value: &str) -> Verex {
-    Verex::new().anything_but(value).clone()
+pub fn anything_but(chars: &str) -> Verex {
+    Verex::new().anything_but(chars).clone()
 }
 
 /// A line break!
@@ -129,9 +130,14 @@ pub fn br() -> Verex {
     line_break()
 }
 
-/// Find a specific string and capture it
+/// Find a specific string and capture it (will get escaped)
 pub fn capture(value: &str) -> Verex {
     Verex::new().capture(value).clone()
+}
+
+/// Find an expression and capture it
+pub fn capture_expr(expr: Expression) -> Verex {
+    Verex::new().capture_expr(expr).clone()
 }
 
 /// Add the token for matching digits
@@ -149,6 +155,11 @@ pub fn find(value: &str) -> Verex {
     Verex::new().find(value).clone()
 }
 
+/// Find an expression
+pub fn find_expr(expr: Expression) -> Verex {
+    Verex::new().find_expr(expr).clone()
+}
+
 /// A line break!
 pub fn line_break() -> Verex {
     Verex::new().line_break().clone()
@@ -157,6 +168,11 @@ pub fn line_break() -> Verex {
 /// Any string either one or zero times
 pub fn maybe(value: &str) -> Verex {
     Verex::new().maybe(value).clone()
+}
+
+/// Any string either one or zero times
+pub fn maybe_expr(expr: Expression) -> Verex {
+    Verex::new().maybe_expr(expr).clone()
 }
 
 /// Match any of the given sub-expressions
@@ -191,8 +207,8 @@ pub fn something() -> Verex {
 }
 
 /// Any character at least one time except for these characters
-pub fn something_but(value: &str) -> Verex {
-    Verex::new().something_but(value).clone()
+pub fn something_but(chars: &str) -> Verex {
+    Verex::new().something_but(chars).clone()
 }
 
 /// Add a token for the start of a line

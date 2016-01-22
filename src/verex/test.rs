@@ -1,6 +1,25 @@
+use regex::Regex;
+
+use verex::escape;
+use verex::Expression as E;
 use verex::Verex;
 
 const A_VEREX_STRING: &'static str = r"(?:a)";
+
+#[test]
+fn test_escape() {
+    let string = r"\()[]{}.+*?^$|";
+    let escaped = escape(string);
+    assert_eq!(r"\\\(\)\[\]\{\}\.\+\*\?\^\$\|", escaped);
+    let regex = Regex::new(escaped.as_ref()).unwrap();
+    assert!(regex.is_match(string));
+
+    let reverse = r"|$^?*+.}{][)(\";
+    let reverse_escaped = escape(reverse);
+    assert_eq!(r"\|\$\^\?\*\+\.\}\{\]\[\)\(\\", reverse_escaped);
+    let regex = Regex::new(reverse_escaped.as_ref()).unwrap();
+    assert!(regex.is_match(reverse));
+}
 
 #[test]
 fn test_constructors() {
@@ -188,6 +207,47 @@ fn test_find_chained() {
     assert!(!regex.is_match(r"foo"));
     assert!(!regex.is_match(r"barfoo"));
     assert!(regex.is_match(r"foobar"));
+}
+
+#[test]
+fn test_find_expr_string() {
+    let mut verex = Verex::new();
+    verex.find_expr(E::String(r"[a-c]"));
+    assert_eq!(verex.source(), r"(?:(?:[a-c]))");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"a"));
+    assert!(regex.is_match(r"b"));
+    assert!(regex.is_match(r"c"));
+    assert!(!regex.is_match(r"d"));
+}
+
+#[test]
+fn test_find_expr_verex() {
+    let insert_verex = Verex::new().range(vec![('a', 'c')]).clone();
+    let mut verex = Verex::new();
+    verex.find_expr(E::Verex(&insert_verex));
+    assert_eq!(verex.source(), r"(?:(?:(?:[a-c])))");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"a"));
+    assert!(regex.is_match(r"b"));
+    assert!(regex.is_match(r"c"));
+    assert!(!regex.is_match(r"d"));
+}
+
+#[test]
+fn test_find_expr_regex() {
+    let insert_regex = Verex::new().range(vec![('a', 'c')]).compile().unwrap();
+    let mut verex = Verex::new();
+    verex.find_expr(E::Regex(&insert_regex));
+    assert_eq!(verex.source(), r"(?:(?:(?:[a-c])))");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"a"));
+    assert!(regex.is_match(r"b"));
+    assert!(regex.is_match(r"c"));
+    assert!(!regex.is_match(r"d"));
 }
 
 #[test]
