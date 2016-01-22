@@ -11,7 +11,7 @@ It uses the [`regex`](https://github.com/rust-lang-nursery/regex) crate to compi
 Add this to your Cargo.toml:
 ```toml
 [dependencies]
-verex = "0.1"
+verex = "0.2"
 ```
 and this to your crate root:
 ```rust
@@ -67,6 +67,6 @@ fn main() {
     // Test if the URL is valid
     assert!(regex.is_match(test_url));
     // Test the generated regex string
-    assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)");
+    assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www\.)?(?:[^ ]*)$)");
 }
 ```
