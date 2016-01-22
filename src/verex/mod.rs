@@ -99,13 +99,13 @@ impl Verex {
     // --------------------------------------------------
     // fundamental methods
     /// Add a string to the regex string in the `Verex` and return self
-    pub fn add(&mut self, value: &str) -> &mut Verex {
+    fn add(&mut self, value: &str) -> &mut Verex {
         self.string.push_str(value);
         self
     }
 
     /// Update the source string from the (presumably changed) builder string
-    pub fn update_source_with_modifiers(&mut self) -> &mut Verex {
+    fn update_source_with_modifiers(&mut self) -> &mut Verex {
         self.source.clear();
         self.source.push_str(r"(?");
         if self.modifiers.contains(CASE_INSENSITIVE) {
@@ -146,28 +146,38 @@ impl Verex {
     }
 
     /// Open a character class
-    pub fn open_class(&mut self) -> &mut Verex {
+    fn open_class(&mut self) -> &mut Verex {
         self.add(r"[")
     }
 
     /// Close a character class
-    pub fn close_class(&mut self) -> &mut Verex {
+    fn close_class(&mut self) -> &mut Verex {
         self.add(r"]")
     }
 
     /// Open a non-capturing group
-    pub fn open_group(&mut self) -> &mut Verex {
+    fn open_group(&mut self) -> &mut Verex {
         self.add(r"(?:")
     }
 
     /// Open a capturing group
-    pub fn open_capturing_group(&mut self) -> &mut Verex {
+    fn open_capturing_group(&mut self) -> &mut Verex {
         self.add(r"(")
     }
 
     /// Close a capturing or non-capturing group
-    pub fn close_group(&mut self) -> &mut Verex {
+    fn close_group(&mut self) -> &mut Verex {
         self.add(r")")
+    }
+
+    /// Open a quantifier
+    fn open_quantifier(&mut self) -> &mut Verex {
+        self.add(r"{")
+    }
+
+    /// Close a quantifier
+    fn close_quantifier(&mut self) -> &mut Verex {
+        self.add(r"}")
     }
 
     // --------------------------------------------------
@@ -315,6 +325,41 @@ impl Verex {
         }
         string.push(']');
         self.add(string.as_ref());
+        self.update_source_with_modifiers()
+    }
+
+    /// Repeat the previous item n times
+    pub fn repeat_n(&mut self, n: u32) -> &mut Verex {
+        self.open_quantifier()
+            .add(n.to_string().as_ref())
+            .close_quantifier();
+        self.update_source_with_modifiers()
+    }
+
+    /// Repeat the previous item n to m times
+    pub fn repeat_n_to_m(&mut self, n: u32, m: u32) -> &mut Verex {
+        self.open_quantifier()
+            .add(n.to_string().as_ref())
+            .add(r",")
+            .add(m.to_string().as_ref())
+            .close_quantifier();
+        self.update_source_with_modifiers()
+    }
+
+    /// Repeat the previous item once or more times
+    pub fn repeat_once_or_more(&mut self) -> &mut Verex {
+        self.add(r"+");
+        self.update_source_with_modifiers()
+    }
+
+    /// Repeat the previous item n times
+    pub fn repeat_previous(&mut self, n: u32) -> &mut Verex {
+        self.repeat_n(n)
+    }
+
+    /// Repeat the previous item zero or more times
+    pub fn repeat_zero_or_more(&mut self) -> &mut Verex {
+        self.add(r"*");
         self.update_source_with_modifiers()
     }
 

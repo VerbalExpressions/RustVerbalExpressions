@@ -7,6 +7,8 @@ It uses the [`regex`](https://github.com/rust-lang-nursery/regex) crate to compi
 
 [![Build Status](https://travis-ci.org/VerbalExpressions/RustVerbalExpressions.svg?branch=master)](https://travis-ci.org/VerbalExpressions/RustVerbalExpressions)
 
+Versions are numbered according to [semver](http://semver.org/).
+
 # Usage
 Add this to your Cargo.toml:
 ```toml
