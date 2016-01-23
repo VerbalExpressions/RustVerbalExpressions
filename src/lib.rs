@@ -67,7 +67,7 @@
 //!     assert!(regex.is_match(test_url));
 //!
 //!     // Test the generated regex string
-//!     assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)");
+//!     assert_eq!(verex.source(), r"(?:^(?:http)(?:s)?(?:://)(?:www\.)?(?:[^ ]*)$)");
 //! # }
 //! ```
 //!
@@ -92,6 +92,37 @@
 //!     assert_eq!(regex.as_str(), r"(?:(?:foo)|(?:bar)|(?:baz))");
 //! # }
 //! ```
+//!
+//! Example usage of the `or_expr!` macro:
+//!
+//! ```rust
+//! #[macro_use(or_expr)]
+//! extern crate verex;
+//! extern crate regex;
+//! use verex::Expression as E;
+//! use verex::Verex;
+//! use regex::Regex;
+//!
+//! # fn main() {
+//!     let sub_verex = Verex::from_str("Darth(Vader)*?");
+//!     let sub_regex = Regex::new("(?P<robot>C3PO)").unwrap();
+//!     let regex = or_expr!(
+//!                     E::String("([RD]2){2}"),
+//!                     E::Verex(&sub_verex),
+//!                     E::Regex(&sub_regex))
+//!                 .compile()
+//!                 .unwrap();
+//!
+//!     // Test if the regex matches correctly
+//!     assert!(regex.is_match("R2D2"));
+//!     assert!(regex.is_match("Darth"));
+//!     assert!(regex.is_match("C3PO"));
+//!     assert!(!regex.is_match("Anakin"));
+//!
+//!     // Test the generated regex string
+//!     assert_eq!(regex.as_str(), r"(?:(?:([RD]2){2})|(?:(?:Darth(Vader)*?))|(?:(?P<robot>C3PO)))");
+//! # }
+//! ```
 
 #![warn(missing_docs)]
 
@@ -100,6 +131,7 @@ extern crate bitflags;
 extern crate regex;
 
 pub use verex::Verex;
+pub use verex::Expression;
 
 mod verex;
 
@@ -120,8 +152,8 @@ pub fn anything() -> Verex {
 }
 
 /// Any character zero or more times except the provided characters
-pub fn anything_but(value: &str) -> Verex {
-    Verex::new().anything_but(value).clone()
+pub fn anything_but(chars: &str) -> Verex {
+    Verex::new().anything_but(chars).clone()
 }
 
 /// A line break!
@@ -129,9 +161,14 @@ pub fn br() -> Verex {
     line_break()
 }
 
-/// Find a specific string and capture it
+/// Find a specific string and capture it (will get escaped)
 pub fn capture(value: &str) -> Verex {
     Verex::new().capture(value).clone()
+}
+
+/// Find an expression and capture it
+pub fn capture_expr(expr: Expression) -> Verex {
+    Verex::new().capture_expr(expr).clone()
 }
 
 /// Add the token for matching digits
@@ -149,6 +186,11 @@ pub fn find(value: &str) -> Verex {
     Verex::new().find(value).clone()
 }
 
+/// Find an expression
+pub fn find_expr(expr: Expression) -> Verex {
+    Verex::new().find_expr(expr).clone()
+}
+
 /// A line break!
 pub fn line_break() -> Verex {
     Verex::new().line_break().clone()
@@ -159,7 +201,12 @@ pub fn maybe(value: &str) -> Verex {
     Verex::new().maybe(value).clone()
 }
 
-/// Match any of the given sub-expressions
+/// Any string either one or zero times
+pub fn maybe_expr(expr: Expression) -> Verex {
+    Verex::new().maybe_expr(expr).clone()
+}
+
+/// Match any of the given values
 #[macro_export]
 macro_rules! or {
     ( $first_string:expr, $( $string:expr ),* ) => {
@@ -168,6 +215,21 @@ macro_rules! or {
             verex.find($first_string);
             $(
                 verex.or_find($string);
+            )*
+            verex
+        }
+    };
+}
+
+/// Match any of the given sub-expressions
+#[macro_export]
+macro_rules! or_expr {
+    ( $first_e:expr, $( $e:expr ),* ) => {
+        {
+            let mut verex = $crate::Verex::new();
+            verex.find_expr($first_e);
+            $(
+                verex.or_find_expr($e);
             )*
             verex
         }
@@ -191,8 +253,8 @@ pub fn something() -> Verex {
 }
 
 /// Any character at least one time except for these characters
-pub fn something_but(value: &str) -> Verex {
-    Verex::new().something_but(value).clone()
+pub fn something_but(chars: &str) -> Verex {
+    Verex::new().something_but(chars).clone()
 }
 
 /// Add a token for the start of a line

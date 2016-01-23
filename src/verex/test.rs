@@ -1,6 +1,25 @@
+use regex::Regex;
+
+use verex::escape;
+use verex::Expression as E;
 use verex::Verex;
 
 const A_VEREX_STRING: &'static str = r"(?:a)";
+
+#[test]
+fn test_escape() {
+    let string = r"\()[]{}.+*?^$|";
+    let escaped = escape(string);
+    assert_eq!(r"\\\(\)\[\]\{\}\.\+\*\?\^\$\|", escaped);
+    let regex = Regex::new(escaped.as_ref()).unwrap();
+    assert!(regex.is_match(string));
+
+    let reverse = r"|$^?*+.}{][)(\";
+    let reverse_escaped = escape(reverse);
+    assert_eq!(r"\|\$\^\?\*\+\.\}\{\]\[\)\(\\", reverse_escaped);
+    let regex = Regex::new(reverse_escaped.as_ref()).unwrap();
+    assert!(regex.is_match(reverse));
+}
 
 #[test]
 fn test_constructors() {
@@ -191,6 +210,47 @@ fn test_find_chained() {
 }
 
 #[test]
+fn test_find_expr_string() {
+    let mut verex = Verex::new();
+    verex.find_expr(E::String(r"[a-c]"));
+    assert_eq!(verex.source(), r"(?:(?:[a-c]))");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"a"));
+    assert!(regex.is_match(r"b"));
+    assert!(regex.is_match(r"c"));
+    assert!(!regex.is_match(r"d"));
+}
+
+#[test]
+fn test_find_expr_verex() {
+    let insert_verex = Verex::new().range(vec![('a', 'c')]).clone();
+    let mut verex = Verex::new();
+    verex.find_expr(E::Verex(&insert_verex));
+    assert_eq!(verex.source(), r"(?:(?:(?:[a-c])))");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"a"));
+    assert!(regex.is_match(r"b"));
+    assert!(regex.is_match(r"c"));
+    assert!(!regex.is_match(r"d"));
+}
+
+#[test]
+fn test_find_expr_regex() {
+    let insert_regex = Verex::new().range(vec![('a', 'c')]).compile().unwrap();
+    let mut verex = Verex::new();
+    verex.find_expr(E::Regex(&insert_regex));
+    assert_eq!(verex.source(), r"(?:(?:(?:[a-c])))");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"a"));
+    assert!(regex.is_match(r"b"));
+    assert!(regex.is_match(r"c"));
+    assert!(!regex.is_match(r"d"));
+}
+
+#[test]
 fn test_maybe() {
     let mut verex: Verex = Verex::new();
     verex.start_of_line()
@@ -230,8 +290,7 @@ fn test_or_and_or_find() {
 
 #[test]
 fn test_range() {
-    let mut verex = Verex::new();
-    verex.range(vec![('a', 'z')]);
+    let verex = Verex::new().range(vec![('a', 'z')]).clone();
     assert_eq!(verex.source(), r"(?:[a-z])");
 
     let regex = verex.compile().unwrap();
@@ -242,6 +301,67 @@ fn test_range() {
     assert!(regex.is_match(r"z"));
     assert!(!regex.is_match(r"A"));
     assert!(!regex.is_match(r"Z"));
+}
+
+#[test]
+fn test_repeat_n_and_repeat_previous() {
+    // repeat_n
+    let verex = Verex::new().find("a").repeat_n(3).clone();
+    assert_eq!(verex.source(), r"(?:(?:a){3})");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"aaa"));
+    assert!(!regex.is_match(r"a"));
+    assert!(!regex.is_match(r"b"));
+
+    // repeat_previous
+    let verex2 = Verex::new().find("a").repeat_previous(3).clone();
+    assert_eq!(verex2.source(), r"(?:(?:a){3})");
+
+    let regex2 = verex2.compile().unwrap();
+    assert!(regex2.is_match(r"aaa"));
+    assert!(!regex2.is_match(r"a"));
+    assert!(!regex2.is_match(r"b"));
+}
+
+#[test]
+fn test_repeat_n_to_m() {
+    let verex = Verex::new().find("a").repeat_n_to_m(3, 4).clone();
+    assert_eq!(verex.source(), r"(?:(?:a){3,4})");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"aaa"));
+    assert!(regex.is_match(r"aaaa"));
+    assert!(!regex.is_match(r"a"));
+    assert!(!regex.is_match(r"b"));
+}
+
+#[test]
+fn test_repeat_once_or_more() {
+    let verex = Verex::new().find("a").repeat_once_or_more().clone();
+    assert_eq!(verex.source(), r"(?:(?:a)+)");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"aaa"));
+    assert!(regex.is_match(r"baaa"));
+    assert!(regex.is_match(r"aaaa"));
+    assert!(regex.is_match(r"a"));
+    assert!(!regex.is_match(r""));
+    assert!(!regex.is_match(r"b"));
+}
+
+#[test]
+fn test_repeat_zero_or_more() {
+    let verex = Verex::new().find("b").find("a").repeat_zero_or_more().find("b").clone();
+    assert_eq!(verex.source(), r"(?:(?:b)(?:a)*(?:b))");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r"baaab"));
+    assert!(regex.is_match(r"baaaab"));
+    assert!(regex.is_match(r"bab"));
+    assert!(regex.is_match(r"bb"));
+    assert!(!regex.is_match(r"bacab"));
+    assert!(!regex.is_match(r"bcb"));
 }
 
 #[test]
