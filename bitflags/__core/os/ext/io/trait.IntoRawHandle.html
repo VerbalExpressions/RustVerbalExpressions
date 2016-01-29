@@ -9,6 +9,7 @@
 
     <title>bitflags::__core::os::ext::io::IntoRawHandle - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../../main.css">
 
     
@@ -45,15 +46,15 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-12490' class='srclink' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/trait.IntoRawHandle.html?gotosrc=12490' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-13281' class='srclink' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/trait.IntoRawHandle.html?gotosrc=13281' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait IntoRawHandle {
-    fn <a href='#tymethod.into_raw_handle' class='fnname'>into_raw_handle</a>(self) -&gt; <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a>;
+    fn <a href='#tymethod.into_raw_handle' class='fnname'>into_raw_handle</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a>;
 }</pre><div class='docblock'><p>A trait to express the ability to consume an object and acquire ownership of
 its raw <code>HANDLE</code>.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.into_raw_handle' class='method stab '><code>fn <a href='#tymethod.into_raw_handle' class='fnname'>into_raw_handle</a>(self) -&gt; <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a></code></h3><div class='docblock'><p>Consumes this object, returning the raw underlying handle.</p>
+        <h3 id='tymethod.into_raw_handle' class='method stab '><code>fn <a href='#tymethod.into_raw_handle' class='fnname'>into_raw_handle</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a></code></h3><div class='docblock'><p>Consumes this object, returning the raw underlying handle.</p>
 
 <p>This function <strong>transfers ownership</strong> of the underlying handle to the
 caller. Callers are then the unique owners of the handle and must close
@@ -66,6 +67,7 @@ it once it&#39;s no longer needed.</p>
 <li><code>impl <a class='trait' href='../../../../../bitflags/__core/os/ext/prelude/trait.IntoRawHandle.html' title='bitflags::__core::os::ext::prelude::IntoRawHandle'>IntoRawHandle</a> for <a class='struct' href='../../../../../bitflags/__core/process/struct.ChildStdin.html' title='bitflags::__core::process::ChildStdin'>ChildStdin</a></code></li>
 <li><code>impl <a class='trait' href='../../../../../bitflags/__core/os/ext/prelude/trait.IntoRawHandle.html' title='bitflags::__core::os::ext::prelude::IntoRawHandle'>IntoRawHandle</a> for <a class='struct' href='../../../../../bitflags/__core/process/struct.ChildStdout.html' title='bitflags::__core::process::ChildStdout'>ChildStdout</a></code></li>
 <li><code>impl <a class='trait' href='../../../../../bitflags/__core/os/ext/prelude/trait.IntoRawHandle.html' title='bitflags::__core::os::ext::prelude::IntoRawHandle'>IntoRawHandle</a> for <a class='struct' href='../../../../../bitflags/__core/process/struct.ChildStderr.html' title='bitflags::__core::process::ChildStderr'>ChildStderr</a></code></li>
+<li><code>impl&lt;T&gt; <a class='trait' href='../../../../../bitflags/__core/os/ext/prelude/trait.IntoRawHandle.html' title='bitflags::__core::os::ext::prelude::IntoRawHandle'>IntoRawHandle</a> for <a class='struct' href='../../../../../bitflags/__core/thread/struct.JoinHandle.html' title='bitflags::__core::thread::JoinHandle'>JoinHandle</a>&lt;T&gt;</code></li>
 </ul><script type="text/javascript" async
                               src="../../../../../implementors/std/sys/ext/io/trait.IntoRawHandle.js">
                       </script></section>
@@ -127,6 +129,6 @@ it once it&#39;s no longer needed.</p>
     <script src="../../../../../jquery.js"></script>
     <script src="../../../../../main.js"></script>
     
-    <script async src="../../../../../search-index.js"></script>
+    <script defer src="../../../../../search-index.js"></script>
 </body>
 </html>

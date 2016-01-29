@@ -9,6 +9,7 @@
 
     <title>bitflags::__core::os::ext::io::FromRawHandle - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../../main.css">
 
     
@@ -45,14 +46,14 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-12487' class='srclink' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/trait.FromRawHandle.html?gotosrc=12487' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-13278' class='srclink' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/trait.FromRawHandle.html?gotosrc=13278' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait FromRawHandle {
-    unsafe fn <a href='#tymethod.from_raw_handle' class='fnname'>from_raw_handle</a>(handle: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a>) -&gt; Self;
+    unsafe fn <a href='#tymethod.from_raw_handle' class='fnname'>from_raw_handle</a>(handle: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a>) -&gt; Self;
 }</pre><div class='docblock'><p>Construct I/O objects from raw handles.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.from_raw_handle' class='method stab '><code>unsafe fn <a href='#tymethod.from_raw_handle' class='fnname'>from_raw_handle</a>(handle: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a>) -&gt; Self</code></h3><div class='docblock'><p>Constructs a new I/O object from the specified raw handle.</p>
+        <h3 id='tymethod.from_raw_handle' class='method stab '><code>unsafe fn <a href='#tymethod.from_raw_handle' class='fnname'>from_raw_handle</a>(handle: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a>) -&gt; Self</code></h3><div class='docblock'><p>Constructs a new I/O object from the specified raw handle.</p>
 
 <p>This function will <strong>consume ownership</strong> of the handle given,
 passing responsibility for closing the handle to the returned
@@ -129,6 +130,6 @@ unsafety in code that relies on it being true.</p>
     <script src="../../../../../jquery.js"></script>
     <script src="../../../../../main.js"></script>
     
-    <script async src="../../../../../search-index.js"></script>
+    <script defer src="../../../../../search-index.js"></script>
 </body>
 </html>

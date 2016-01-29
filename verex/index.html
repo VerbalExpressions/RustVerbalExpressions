@@ -9,6 +9,7 @@
 
     <title>verex - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -45,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/verex/lib.rs.html#1-216' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/verex/lib.rs.html#1-278' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>This crate provides a Rust implementation of VerbalExpressions in order to build regex
 strings without knowing the minutiae of regex syntax.</p>
 
@@ -105,7 +106,7 @@ strings without knowing the minutiae of regex syntax.</p>
     <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='ident'>test_url</span>));
 
     <span class='comment'>// Test the generated regex string</span>
-    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>verex</span>.<span class='ident'>source</span>(), <span class='string'>r&quot;(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)&quot;</span>);</pre>
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>verex</span>.<span class='ident'>source</span>(), <span class='string'>r&quot;(?:^(?:http)(?:s)?(?:://)(?:www\.)?(?:[^ ]*)$)&quot;</span>);</pre>
 
 <p>Example usage of the <code>or!</code> macro:</p>
 <pre class='rust rust-example-rendered'>
@@ -124,11 +125,47 @@ strings without knowing the minutiae of regex syntax.</p>
 
     <span class='comment'>// Test the generated regex string</span>
     <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>as_str</span>(), <span class='string'>r&quot;(?:(?:foo)|(?:bar)|(?:baz))&quot;</span>);</pre>
+
+<p>Example usage of the <code>or_expr!</code> macro:</p>
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>macro_use</span>(<span class='ident'>or_expr</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>verex</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>regex</span>;
+<span class='kw'>use</span> <span class='ident'>verex</span>::<span class='ident'>Expression</span> <span class='kw'>as</span> <span class='ident'>E</span>;
+<span class='kw'>use</span> <span class='ident'>verex</span>::<span class='ident'>Verex</span>;
+<span class='kw'>use</span> <span class='ident'>regex</span>::<span class='ident'>Regex</span>;
+
+    <span class='kw'>let</span> <span class='ident'>sub_verex</span> <span class='op'>=</span> <span class='ident'>Verex</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;Darth(Vader)*?&quot;</span>);
+    <span class='kw'>let</span> <span class='ident'>sub_regex</span> <span class='op'>=</span> <span class='ident'>Regex</span>::<span class='ident'>new</span>(<span class='string'>&quot;(?P&lt;robot&gt;C3PO)&quot;</span>).<span class='ident'>unwrap</span>();
+    <span class='kw'>let</span> <span class='ident'>regex</span> <span class='op'>=</span> <span class='macro'>or_expr</span><span class='macro'>!</span>(
+                    <span class='ident'>E</span>::<span class='ident'>String</span>(<span class='string'>&quot;([RD]2){2}&quot;</span>),
+                    <span class='ident'>E</span>::<span class='ident'>Verex</span>(<span class='kw-2'>&amp;</span><span class='ident'>sub_verex</span>),
+                    <span class='ident'>E</span>::<span class='ident'>Regex</span>(<span class='kw-2'>&amp;</span><span class='ident'>sub_regex</span>))
+                .<span class='ident'>compile</span>()
+                .<span class='ident'>unwrap</span>();
+
+    <span class='comment'>// Test if the regex matches correctly</span>
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;R2D2&quot;</span>));
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;Darth&quot;</span>));
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;C3PO&quot;</span>));
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>regex</span>.<span class='ident'>is_match</span>(<span class='string'>&quot;Anakin&quot;</span>));
+
+    <span class='comment'>// Test the generated regex string</span>
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>regex</span>.<span class='ident'>as_str</span>(), <span class='string'>r&quot;(?:(?:([RD]2){2})|(?:(?:Darth(Vader)*?))|(?:(?P&lt;robot&gt;C3PO)))&quot;</span>);</pre>
 </div><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
 <table>
                     <tr class=' module-item'>
                         <td><a class='macro' href='macro.or!.html'
                                title='verex::or!'>or!</a></td>
+                        <td class='docblock short'>
+                             <p>Match any of the given values</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='macro' href='macro.or_expr!.html'
+                               title='verex::or_expr!'>or_expr!</a></td>
                         <td class='docblock short'>
                              <p>Match any of the given sub-expressions</p>
 
@@ -141,6 +178,16 @@ strings without knowing the minutiae of regex syntax.</p>
                                title='verex::Verex'>Verex</a></td>
                         <td class='docblock short'>
                              <p>The struct used for building verbal expression objects</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='enum' href='enum.Expression.html'
+                               title='verex::Expression'>Expression</a></td>
+                        <td class='docblock short'>
+                             <p>The enum used to have common functions for different Types</p>
 
                         </td>
                     </tr>
@@ -195,7 +242,16 @@ strings without knowing the minutiae of regex syntax.</p>
                         <td><a class='fn' href='fn.capture.html'
                                title='verex::capture'>capture</a></td>
                         <td class='docblock short'>
-                             <p>Find a specific string and capture it</p>
+                             <p>Find a specific string and capture it (will get escaped)</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.capture_expr.html'
+                               title='verex::capture_expr'>capture_expr</a></td>
+                        <td class='docblock short'>
+                             <p>Find an expression and capture it</p>
 
                         </td>
                     </tr>
@@ -228,6 +284,15 @@ strings without knowing the minutiae of regex syntax.</p>
                     </tr>
                 
                     <tr class=' module-item'>
+                        <td><a class='fn' href='fn.find_expr.html'
+                               title='verex::find_expr'>find_expr</a></td>
+                        <td class='docblock short'>
+                             <p>Find an expression</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
                         <td><a class='fn' href='fn.line_break.html'
                                title='verex::line_break'>line_break</a></td>
                         <td class='docblock short'>
@@ -239,6 +304,15 @@ strings without knowing the minutiae of regex syntax.</p>
                     <tr class=' module-item'>
                         <td><a class='fn' href='fn.maybe.html'
                                title='verex::maybe'>maybe</a></td>
+                        <td class='docblock short'>
+                             <p>Any string either one or zero times</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.maybe_expr.html'
+                               title='verex::maybe_expr'>maybe_expr</a></td>
                         <td class='docblock short'>
                              <p>Any string either one or zero times</p>
 
@@ -376,6 +450,6 @@ Usage example: verex.range(vec![(&#39;a&#39;, &#39;z&#39;),(&#39;A&#39;, &#39;Z&
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

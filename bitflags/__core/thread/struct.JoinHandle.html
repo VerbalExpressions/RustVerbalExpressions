@@ -9,6 +9,7 @@
 
     <title>bitflags::__core::thread::JoinHandle - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
     
@@ -45,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-1037' class='srclink' href='https://doc.rust-lang.org/nightly/std/thread/struct.JoinHandle.html?gotosrc=1037' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1048' class='srclink' href='https://doc.rust-lang.org/nightly/std/thread/struct.JoinHandle.html?gotosrc=1048' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct JoinHandle&lt;T&gt;(_);</pre><div class='docblock'><p>An owned permission to join on a thread (block on its termination).</p>
 
 <p>A <code>JoinHandle</code> <em>detaches</em> the child thread when it is dropped.</p>
@@ -60,7 +61,9 @@ permission.</p>
 
 <p>If the child thread panics, <code>Err</code> is returned with the parameter given
 to <code>panic</code>.</p>
-</div></div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='../../../bitflags/__core/os/ext/prelude/trait.AsRawHandle.html' title='bitflags::__core::os::ext::prelude::AsRawHandle'>AsRawHandle</a> for <a class='struct' href='../../../bitflags/__core/thread/struct.JoinHandle.html' title='bitflags::__core::thread::JoinHandle'>JoinHandle</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.as_raw_handle' class='method'><code>fn <a href='../../../bitflags/__core/os/ext/prelude/trait.AsRawHandle.html#method.as_raw_handle' class='fnname'>as_raw_handle</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a></code></h4>
+</div><h3 class='impl'><code>impl&lt;T&gt; <a class='trait' href='../../../bitflags/__core/os/ext/prelude/trait.IntoRawHandle.html' title='bitflags::__core::os::ext::prelude::IntoRawHandle'>IntoRawHandle</a> for <a class='struct' href='../../../bitflags/__core/thread/struct.JoinHandle.html' title='bitflags::__core::thread::JoinHandle'>JoinHandle</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.into_raw_handle' class='method'><code>fn <a href='../../../bitflags/__core/os/ext/prelude/trait.IntoRawHandle.html#method.into_raw_handle' class='fnname'>into_raw_handle</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.pointer.html'>*mut <a class='enum' href='../../../bitflags/__core/os/raw/enum.c_void.html' title='bitflags::__core::os::raw::c_void'>c_void</a></a></code></h4>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -119,6 +122,6 @@ to <code>panic</code>.</p>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     
-    <script async src="../../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

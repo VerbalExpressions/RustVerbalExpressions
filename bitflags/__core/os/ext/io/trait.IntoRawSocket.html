@@ -9,6 +9,7 @@
 
     <title>bitflags::__core::os::ext::io::IntoRawSocket - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../../main.css">
 
     
@@ -45,15 +46,15 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-12509' class='srclink' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/trait.IntoRawSocket.html?gotosrc=12509' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-13300' class='srclink' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/trait.IntoRawSocket.html?gotosrc=13300' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait IntoRawSocket {
-    fn <a href='#tymethod.into_raw_socket' class='fnname'>into_raw_socket</a>(self) -&gt; <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u64.html'>u64</a>;
+    fn <a href='#tymethod.into_raw_socket' class='fnname'>into_raw_socket</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u64.html'>u64</a>;
 }</pre><div class='docblock'><p>A trait to express the ability to consume an object and acquire ownership of
 its raw <code>SOCKET</code>.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.into_raw_socket' class='method stab '><code>fn <a href='#tymethod.into_raw_socket' class='fnname'>into_raw_socket</a>(self) -&gt; <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u64.html'>u64</a></code></h3><div class='docblock'><p>Consumes this object, returning the raw underlying socket.</p>
+        <h3 id='tymethod.into_raw_socket' class='method stab '><code>fn <a href='#tymethod.into_raw_socket' class='fnname'>into_raw_socket</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u64.html'>u64</a></code></h3><div class='docblock'><p>Consumes this object, returning the raw underlying socket.</p>
 
 <p>This function <strong>transfers ownership</strong> of the underlying socket to the
 caller. Callers are then the unique owners of the socket and must close
@@ -125,6 +126,6 @@ it once it&#39;s no longer needed.</p>
     <script src="../../../../../jquery.js"></script>
     <script src="../../../../../main.js"></script>
     
-    <script async src="../../../../../search-index.js"></script>
+    <script defer src="../../../../../search-index.js"></script>
 </body>
 </html>

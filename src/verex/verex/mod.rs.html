@@ -9,6 +9,7 @@
 
     <title>mod.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
     
@@ -372,6 +373,155 @@
 <span id="330">330</span>
 <span id="331">331</span>
 <span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>regex</span>::<span class='ident'>Regex</span>;
 <span class='kw'>use</span> <span class='ident'>regex</span>::<span class='ident'>Error</span>;
@@ -381,7 +531,7 @@
 <span class='macro'>bitflags</span><span class='macro'>!</span> {
     <span class='ident'>flags</span> <span class='ident'>Modifiers</span>: <span class='ident'>u8</span> {
         <span class='kw'>const</span> <span class='ident'>MULTI_LINE</span>        <span class='op'>=</span> <span class='number'>0b00000001</span>,
-        <span class='kw'>const</span> <span class='ident'>CASE_INSENSITIVE</span>    <span class='op'>=</span> <span class='number'>0b00000010</span>,
+        <span class='kw'>const</span> <span class='ident'>CASE_INSENSITIVE</span>  <span class='op'>=</span> <span class='number'>0b00000010</span>,
     }
 }
 
@@ -390,6 +540,54 @@
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>Modifiers</span> {
         <span class='ident'>Modifiers</span>::<span class='ident'>empty</span>()
     }
+}
+
+<span class='doccomment'>/// The enum used to have common functions for different Types</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>Expression</span><span class='op'>&lt;</span><span class='lifetime'>&#39;e</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// The variant for handing over a String reference</span>
+    <span class='ident'>String</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;e</span> <span class='ident'>str</span>),
+    <span class='doccomment'>/// The variant for handing over a Verex reference</span>
+    <span class='ident'>Verex</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;e</span> <span class='ident'>Verex</span>),
+    <span class='doccomment'>/// The variant for handing over a Regex reference</span>
+    <span class='ident'>Regex</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;e</span> <span class='ident'>Regex</span>)
+}
+
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>match_expr</span> {
+    ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>this</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>method</span>:<span class='ident'>ident</span> ) <span class='op'>=&gt;</span> {
+        {
+            <span class='kw'>match</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span> {
+                <span class='ident'>Expression</span>::<span class='ident'>String</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> { <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>this</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>method</span>(<span class='ident'>x</span>) },
+                <span class='ident'>Expression</span>::<span class='ident'>Verex</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> { <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>this</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>method</span>(<span class='ident'>x</span>.<span class='ident'>source</span>()) },
+                <span class='ident'>Expression</span>::<span class='ident'>Regex</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> { <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>this</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>method</span>(<span class='ident'>x</span>.<span class='ident'>as_str</span>()) },
+            }
+        }
+    }
+}
+
+<span class='kw'>const</span> <span class='ident'>ESCAPE_PAIRS</span>: [(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>, <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span>); <span class='number'>14</span>] <span class='op'>=</span> [
+    (<span class='string'>r&quot;(?P&lt;back_slash&gt;\\)&quot;</span>, <span class='string'>&quot;\\$back_slash&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;open_group&gt;\()&quot;</span>, <span class='string'>&quot;\\$open_group&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;close_group&gt;\))&quot;</span>, <span class='string'>&quot;\\$close_group&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;open_class&gt;\[)&quot;</span>, <span class='string'>&quot;\\$open_class&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;close_class&gt;\])&quot;</span>, <span class='string'>&quot;\\$close_class&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;open_quantifier&gt;\{)&quot;</span>, <span class='string'>&quot;\\$open_quantifier&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;close_quantifier&gt;\})&quot;</span>, <span class='string'>&quot;\\$close_quantifier&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;dot&gt;\.)&quot;</span>, <span class='string'>&quot;\\$dot&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;plus&gt;\+)&quot;</span>, <span class='string'>&quot;\\$plus&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;star&gt;\*)&quot;</span>, <span class='string'>&quot;\\$star&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;question_mark&gt;\?)&quot;</span>, <span class='string'>&quot;\\$question_mark&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;circumflex&gt;\^)&quot;</span>, <span class='string'>&quot;\\$circumflex&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;dollar&gt;\$)&quot;</span>, <span class='string'>&quot;\\$dollar&quot;</span>),
+    (<span class='string'>r&quot;(?P&lt;pipe&gt;\|)&quot;</span>, <span class='string'>&quot;\\$pipe&quot;</span>),
+];
+
+<span class='kw'>fn</span> <span class='ident'>escape</span>(<span class='ident'>string</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>string</span>.<span class='ident'>to_string</span>();
+    <span class='kw'>for</span> <span class='ident'>pair</span> <span class='kw'>in</span> <span class='ident'>ESCAPE_PAIRS</span>.<span class='ident'>into_iter</span>() {
+        <span class='kw'>let</span> <span class='ident'>regex</span> <span class='op'>=</span> <span class='ident'>Regex</span>::<span class='ident'>new</span>(<span class='ident'>pair</span>.<span class='number'>0</span>).<span class='ident'>unwrap</span>();
+        <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>regex</span>.<span class='ident'>replace_all</span>(<span class='ident'>result</span>.<span class='ident'>as_ref</span>(), <span class='ident'>pair</span>.<span class='number'>1</span>);
+    }
+    <span class='ident'>result</span>
 }
 
 <span class='doccomment'>/// The struct used for building verbal expression objects</span>
@@ -426,13 +624,13 @@
     <span class='comment'>// --------------------------------------------------</span>
     <span class='comment'>// fundamental methods</span>
     <span class='doccomment'>/// Add a string to the regex string in the `Verex` and return self</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>fn</span> <span class='ident'>add</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>string</span>.<span class='ident'>push_str</span>(<span class='ident'>value</span>);
         <span class='self'>self</span>
     }
 
     <span class='doccomment'>/// Update the source string from the (presumably changed) builder string</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>update_source_with_modifiers</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>fn</span> <span class='ident'>update_source_with_modifiers</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>source</span>.<span class='ident'>clear</span>();
         <span class='self'>self</span>.<span class='ident'>source</span>.<span class='ident'>push_str</span>(<span class='string'>r&quot;(?&quot;</span>);
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>modifiers</span>.<span class='ident'>contains</span>(<span class='ident'>CASE_INSENSITIVE</span>) {
@@ -473,28 +671,38 @@
     }
 
     <span class='doccomment'>/// Open a character class</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>open_class</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>fn</span> <span class='ident'>open_class</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;[&quot;</span>)
     }
 
     <span class='doccomment'>/// Close a character class</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>close_class</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>fn</span> <span class='ident'>close_class</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;]&quot;</span>)
     }
 
     <span class='doccomment'>/// Open a non-capturing group</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>open_group</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>fn</span> <span class='ident'>open_group</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;(?:&quot;</span>)
     }
 
     <span class='doccomment'>/// Open a capturing group</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>open_capturing_group</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>fn</span> <span class='ident'>open_capturing_group</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;(&quot;</span>)
     }
 
     <span class='doccomment'>/// Close a capturing or non-capturing group</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>close_group</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>fn</span> <span class='ident'>close_group</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;)&quot;</span>)
+    }
+
+    <span class='doccomment'>/// Open a quantifier</span>
+    <span class='kw'>fn</span> <span class='ident'>open_quantifier</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;{&quot;</span>)
+    }
+
+    <span class='doccomment'>/// Close a quantifier</span>
+    <span class='kw'>fn</span> <span class='ident'>close_quantifier</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;}&quot;</span>)
     }
 
     <span class='comment'>// --------------------------------------------------</span>
@@ -502,7 +710,7 @@
     <span class='doccomment'>/// Any of the given characters</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>any</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>chars</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>open_class</span>()
-            .<span class='ident'>add</span>(<span class='ident'>chars</span>)
+            .<span class='ident'>add</span>(<span class='ident'>escape</span>(<span class='ident'>chars</span>).<span class='ident'>as_ref</span>())
             .<span class='ident'>close_class</span>();
         <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
     }
@@ -519,11 +727,11 @@
     }
 
     <span class='doccomment'>/// Any character zero or more times except the provided characters</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>anything_but</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>anything_but</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>chars</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>open_group</span>()
             .<span class='ident'>open_class</span>()
             .<span class='ident'>add</span>(<span class='string'>r&quot;^&quot;</span>)
-            .<span class='ident'>add</span>(<span class='ident'>value</span>)
+            .<span class='ident'>add</span>(<span class='ident'>escape</span>(<span class='ident'>chars</span>).<span class='ident'>as_ref</span>())
             .<span class='ident'>close_class</span>()
             .<span class='ident'>add</span>(<span class='string'>r&quot;*&quot;</span>)
             .<span class='ident'>close_group</span>();
@@ -535,12 +743,22 @@
         <span class='self'>self</span>.<span class='ident'>line_break</span>()
     }
 
-    <span class='doccomment'>/// Find a specific string and capture it</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>capture</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='doccomment'>/// Find a specific value and capture it</span>
+    <span class='kw'>fn</span> <span class='ident'>capture_value</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>open_capturing_group</span>()
             .<span class='ident'>add</span>(<span class='ident'>value</span>)
             .<span class='ident'>close_group</span>();
         <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
+    }
+
+    <span class='doccomment'>/// Find a specific string and capture it (will be escaped)</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>capture</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>capture_value</span>(<span class='ident'>escape</span>(<span class='ident'>value</span>).<span class='ident'>as_ref</span>())
+    }
+
+    <span class='doccomment'>/// Find a sub-expression and capture it (won&#39;t be escaped)</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>capture_expr</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>expr</span>: <span class='ident'>Expression</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='macro'>match_expr</span><span class='macro'>!</span>(<span class='ident'>expr</span>, <span class='self'>self</span>, <span class='ident'>capture_value</span>)
     }
 
     <span class='doccomment'>/// Add the token for matching digits</span>
@@ -555,30 +773,50 @@
         <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
     }
 
-    <span class='doccomment'>/// Find a specific string</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='doccomment'>/// Find a value</span>
+    <span class='kw'>fn</span> <span class='ident'>find_value</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>open_group</span>()
             .<span class='ident'>add</span>(<span class='ident'>value</span>)
             .<span class='ident'>close_group</span>();
         <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
+    }
+
+    <span class='doccomment'>/// Find a specific string that will be escaped</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>find_value</span>(<span class='ident'>escape</span>(<span class='ident'>value</span>).<span class='ident'>as_ref</span>())
+    }
+
+    <span class='doccomment'>/// Find an expression (does not get escaped)</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find_expr</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>expr</span>: <span class='ident'>Expression</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='macro'>match_expr</span><span class='macro'>!</span>(<span class='ident'>expr</span>, <span class='self'>self</span>, <span class='ident'>find_value</span>)
     }
 
     <span class='doccomment'>/// A line break!</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>line_break</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>open_group</span>()
             .<span class='ident'>add</span>(<span class='string'>r&quot;\n&quot;</span>)
-            .<span class='ident'>or_find</span>(<span class='string'>r&quot;\r\n&quot;</span>)
+            .<span class='ident'>or_find_expr</span>(<span class='ident'>Expression</span>::<span class='ident'>String</span>(<span class='string'>r&quot;\r\n&quot;</span>))
             .<span class='ident'>close_group</span>();
         <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
     }
 
     <span class='doccomment'>/// Any string either one or zero times</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>maybe</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>fn</span> <span class='ident'>maybe_value</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>open_group</span>()
             .<span class='ident'>add</span>(<span class='ident'>value</span>)
             .<span class='ident'>close_group</span>()
             .<span class='ident'>add</span>(<span class='string'>r&quot;?&quot;</span>);
         <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
+    }
+
+    <span class='doccomment'>/// Any string either one or zero times</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>maybe</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>maybe_value</span>(<span class='ident'>escape</span>(<span class='ident'>value</span>).<span class='ident'>as_ref</span>())
+    }
+
+    <span class='doccomment'>/// Any string either one or zero times</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>maybe_expr</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>expr</span>: <span class='ident'>Expression</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='macro'>match_expr</span><span class='macro'>!</span>(<span class='ident'>expr</span>, <span class='self'>self</span>, <span class='ident'>maybe_value</span>)
     }
 
     <span class='doccomment'>/// Either match the sub-expression before or after this</span>
@@ -591,6 +829,12 @@
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>or_find</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>or</span>()
             .<span class='ident'>find</span>(<span class='ident'>value</span>)
+    }
+
+    <span class='doccomment'>/// Either match the sub-expression before or the provided sub-expression</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>or_find_expr</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>expr</span>: <span class='ident'>Expression</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>or</span>()
+            .<span class='ident'>find_expr</span>(<span class='ident'>expr</span>)
     }
 
     <span class='doccomment'>/// A range of characters e.g. [A-Z]</span>
@@ -606,6 +850,41 @@
         }
         <span class='ident'>string</span>.<span class='ident'>push</span>(<span class='string'>&#39;]&#39;</span>);
         <span class='self'>self</span>.<span class='ident'>add</span>(<span class='ident'>string</span>.<span class='ident'>as_ref</span>());
+        <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
+    }
+
+    <span class='doccomment'>/// Repeat the previous item n times</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>repeat_n</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>n</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>open_quantifier</span>()
+            .<span class='ident'>add</span>(<span class='ident'>n</span>.<span class='ident'>to_string</span>().<span class='ident'>as_ref</span>())
+            .<span class='ident'>close_quantifier</span>();
+        <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
+    }
+
+    <span class='doccomment'>/// Repeat the previous item n to m times</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>repeat_n_to_m</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>n</span>: <span class='ident'>u32</span>, <span class='ident'>m</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>open_quantifier</span>()
+            .<span class='ident'>add</span>(<span class='ident'>n</span>.<span class='ident'>to_string</span>().<span class='ident'>as_ref</span>())
+            .<span class='ident'>add</span>(<span class='string'>r&quot;,&quot;</span>)
+            .<span class='ident'>add</span>(<span class='ident'>m</span>.<span class='ident'>to_string</span>().<span class='ident'>as_ref</span>())
+            .<span class='ident'>close_quantifier</span>();
+        <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
+    }
+
+    <span class='doccomment'>/// Repeat the previous item once or more times</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>repeat_once_or_more</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;+&quot;</span>);
+        <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
+    }
+
+    <span class='doccomment'>/// Repeat the previous item n times</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>repeat_previous</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>n</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>repeat_n</span>(<span class='ident'>n</span>)
+    }
+
+    <span class='doccomment'>/// Repeat the previous item zero or more times</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>repeat_zero_or_more</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+        <span class='self'>self</span>.<span class='ident'>add</span>(<span class='string'>r&quot;*&quot;</span>);
         <span class='self'>self</span>.<span class='ident'>update_source_with_modifiers</span>()
     }
 
@@ -633,11 +912,11 @@
     }
 
     <span class='doccomment'>/// Any character at least one time except for these characters</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>something_but</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>something_but</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>chars</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
         <span class='self'>self</span>.<span class='ident'>open_group</span>()
             .<span class='ident'>open_class</span>()
             .<span class='ident'>add</span>(<span class='string'>r&quot;^&quot;</span>)
-            .<span class='ident'>add</span>(<span class='ident'>value</span>)
+            .<span class='ident'>add</span>(<span class='ident'>escape</span>(<span class='ident'>chars</span>).<span class='ident'>as_ref</span>())
             .<span class='ident'>close_class</span>()
             .<span class='ident'>add</span>(<span class='string'>r&quot;+&quot;</span>)
             .<span class='ident'>close_group</span>();
@@ -674,7 +953,7 @@
 
     <span class='doccomment'>/// Any alphanumeric characters</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>word</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Verex</span> {
-        <span class='self'>self</span>.<span class='ident'>find</span>(<span class='string'>r&quot;\w+&quot;</span>)
+        <span class='self'>self</span>.<span class='ident'>find_expr</span>(<span class='ident'>Expression</span>::<span class='ident'>String</span>(<span class='string'>r&quot;\w+&quot;</span>))
     }
 }
 
@@ -704,6 +983,26 @@
     <span class='kw'>fn</span> <span class='ident'>eq</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='ident'>Verex</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='self'>self</span>.<span class='ident'>string</span> <span class='op'>==</span> <span class='ident'>other</span>.<span class='ident'>string</span>
     }
+}
+
+
+<span class='comment'>// In order to test the macro it has to be in scope...</span>
+<span class='attribute'>#[<span class='ident'>test</span>]</span>
+<span class='kw'>fn</span> <span class='ident'>test_match_expr</span>() {
+    <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='string'>&quot;a string&quot;</span>;
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>test_string_verex</span> <span class='op'>=</span> <span class='ident'>Verex</span>::<span class='ident'>new</span>();
+    <span class='kw'>let</span> <span class='ident'>string_result</span> <span class='op'>=</span> <span class='macro'>match_expr</span><span class='macro'>!</span>(<span class='ident'>Expression</span>::<span class='ident'>String</span>(<span class='ident'>string</span>), <span class='ident'>test_string_verex</span>, <span class='ident'>find_value</span>);
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;(?:(?:a string))&quot;</span>, <span class='ident'>string_result</span>.<span class='ident'>source</span>());
+
+    <span class='kw'>let</span> <span class='ident'>verex</span> <span class='op'>=</span> <span class='ident'>Verex</span>::<span class='ident'>from_str</span>(<span class='ident'>string</span>);
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>test_verex_verex</span> <span class='op'>=</span> <span class='ident'>Verex</span>::<span class='ident'>new</span>();
+    <span class='kw'>let</span> <span class='ident'>verex_result</span> <span class='op'>=</span> <span class='macro'>match_expr</span><span class='macro'>!</span>(<span class='ident'>Expression</span>::<span class='ident'>Verex</span>(<span class='kw-2'>&amp;</span><span class='ident'>verex</span>), <span class='ident'>test_verex_verex</span>, <span class='ident'>find_value</span>);
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;(?:(?:(?:a string)))&quot;</span>, <span class='ident'>verex_result</span>.<span class='ident'>source</span>());
+
+    <span class='kw'>let</span> <span class='ident'>regex</span> <span class='op'>=</span> <span class='ident'>Regex</span>::<span class='ident'>new</span>(<span class='ident'>string</span>).<span class='ident'>unwrap</span>();
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>test_regex_verex</span> <span class='op'>=</span> <span class='ident'>Verex</span>::<span class='ident'>new</span>();
+    <span class='kw'>let</span> <span class='ident'>regex_result</span> <span class='op'>=</span> <span class='macro'>match_expr</span><span class='macro'>!</span>(<span class='ident'>Expression</span>::<span class='ident'>Regex</span>(<span class='kw-2'>&amp;</span><span class='ident'>regex</span>), <span class='ident'>test_regex_verex</span>, <span class='ident'>find_value</span>);
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;(?:(?:a string))&quot;</span>, <span class='ident'>regex_result</span>.<span class='ident'>source</span>());
 }
 </pre>
 </section>
@@ -765,6 +1064,6 @@
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     
-    <script async src="../../../search-index.js"></script>
+    <script defer src="../../../search-index.js"></script>
 </body>
 </html>

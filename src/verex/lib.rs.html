@@ -9,6 +9,7 @@
 
     <title>lib.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
     
@@ -256,6 +257,68 @@
 <span id="214">214</span>
 <span id="215">215</span>
 <span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! This crate provides a Rust implementation of VerbalExpressions in order to build regex</span>
 <span class='doccomment'>//! strings without knowing the minutiae of regex syntax.</span>
@@ -326,7 +389,7 @@
 <span class='doccomment'>//!     assert!(regex.is_match(test_url));</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//!     // Test the generated regex string</span>
-<span class='doccomment'>//!     assert_eq!(verex.source(), r&quot;(?:^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$)&quot;);</span>
+<span class='doccomment'>//!     assert_eq!(verex.source(), r&quot;(?:^(?:http)(?:s)?(?:://)(?:www\.)?(?:[^ ]*)$)&quot;);</span>
 <span class='doccomment'>//! # }</span>
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//!</span>
@@ -351,6 +414,37 @@
 <span class='doccomment'>//!     assert_eq!(regex.as_str(), r&quot;(?:(?:foo)|(?:bar)|(?:baz))&quot;);</span>
 <span class='doccomment'>//! # }</span>
 <span class='doccomment'>//! ```</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! Example usage of the `or_expr!` macro:</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! ```rust</span>
+<span class='doccomment'>//! #[macro_use(or_expr)]</span>
+<span class='doccomment'>//! extern crate verex;</span>
+<span class='doccomment'>//! extern crate regex;</span>
+<span class='doccomment'>//! use verex::Expression as E;</span>
+<span class='doccomment'>//! use verex::Verex;</span>
+<span class='doccomment'>//! use regex::Regex;</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! # fn main() {</span>
+<span class='doccomment'>//!     let sub_verex = Verex::from_str(&quot;Darth(Vader)*?&quot;);</span>
+<span class='doccomment'>//!     let sub_regex = Regex::new(&quot;(?P&lt;robot&gt;C3PO)&quot;).unwrap();</span>
+<span class='doccomment'>//!     let regex = or_expr!(</span>
+<span class='doccomment'>//!                     E::String(&quot;([RD]2){2}&quot;),</span>
+<span class='doccomment'>//!                     E::Verex(&amp;sub_verex),</span>
+<span class='doccomment'>//!                     E::Regex(&amp;sub_regex))</span>
+<span class='doccomment'>//!                 .compile()</span>
+<span class='doccomment'>//!                 .unwrap();</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//!     // Test if the regex matches correctly</span>
+<span class='doccomment'>//!     assert!(regex.is_match(&quot;R2D2&quot;));</span>
+<span class='doccomment'>//!     assert!(regex.is_match(&quot;Darth&quot;));</span>
+<span class='doccomment'>//!     assert!(regex.is_match(&quot;C3PO&quot;));</span>
+<span class='doccomment'>//!     assert!(!regex.is_match(&quot;Anakin&quot;));</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//!     // Test the generated regex string</span>
+<span class='doccomment'>//!     assert_eq!(regex.as_str(), r&quot;(?:(?:([RD]2){2})|(?:(?:Darth(Vader)*?))|(?:(?P&lt;robot&gt;C3PO)))&quot;);</span>
+<span class='doccomment'>//! # }</span>
+<span class='doccomment'>//! ```</span>
 
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>warn</span>(<span class='ident'>missing_docs</span>)]</span>
 
@@ -359,6 +453,7 @@
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>regex</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>verex</span>::<span class='ident'>Verex</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>verex</span>::<span class='ident'>Expression</span>;
 
 <span class='kw'>mod</span> <span class='ident'>verex</span>;
 
@@ -379,8 +474,8 @@
 }
 
 <span class='doccomment'>/// Any character zero or more times except the provided characters</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>anything_but</span>(<span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
-    <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>anything_but</span>(<span class='ident'>value</span>).<span class='ident'>clone</span>()
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>anything_but</span>(<span class='ident'>chars</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
+    <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>anything_but</span>(<span class='ident'>chars</span>).<span class='ident'>clone</span>()
 }
 
 <span class='doccomment'>/// A line break!</span>
@@ -388,9 +483,14 @@
     <span class='ident'>line_break</span>()
 }
 
-<span class='doccomment'>/// Find a specific string and capture it</span>
+<span class='doccomment'>/// Find a specific string and capture it (will get escaped)</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>capture</span>(<span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
     <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>capture</span>(<span class='ident'>value</span>).<span class='ident'>clone</span>()
+}
+
+<span class='doccomment'>/// Find an expression and capture it</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>capture_expr</span>(<span class='ident'>expr</span>: <span class='ident'>Expression</span>) <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
+    <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>capture_expr</span>(<span class='ident'>expr</span>).<span class='ident'>clone</span>()
 }
 
 <span class='doccomment'>/// Add the token for matching digits</span>
@@ -408,6 +508,11 @@
     <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>find</span>(<span class='ident'>value</span>).<span class='ident'>clone</span>()
 }
 
+<span class='doccomment'>/// Find an expression</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find_expr</span>(<span class='ident'>expr</span>: <span class='ident'>Expression</span>) <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
+    <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>find_expr</span>(<span class='ident'>expr</span>).<span class='ident'>clone</span>()
+}
+
 <span class='doccomment'>/// A line break!</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>line_break</span>() <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
     <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>line_break</span>().<span class='ident'>clone</span>()
@@ -418,7 +523,12 @@
     <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>maybe</span>(<span class='ident'>value</span>).<span class='ident'>clone</span>()
 }
 
-<span class='doccomment'>/// Match any of the given sub-expressions</span>
+<span class='doccomment'>/// Any string either one or zero times</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>maybe_expr</span>(<span class='ident'>expr</span>: <span class='ident'>Expression</span>) <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
+    <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>maybe_expr</span>(<span class='ident'>expr</span>).<span class='ident'>clone</span>()
+}
+
+<span class='doccomment'>/// Match any of the given values</span>
 <span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>or</span> {
     ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>first_string</span>:<span class='ident'>expr</span>, $( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>string</span>:<span class='ident'>expr</span> ),<span class='op'>*</span> ) <span class='op'>=&gt;</span> {
@@ -427,6 +537,21 @@
             <span class='ident'>verex</span>.<span class='ident'>find</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>first_string</span>);
             $(
                 <span class='ident'>verex</span>.<span class='ident'>or_find</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>string</span>);
+            )<span class='op'>*</span>
+            <span class='ident'>verex</span>
+        }
+    };
+}
+
+<span class='doccomment'>/// Match any of the given sub-expressions</span>
+<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>or_expr</span> {
+    ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>first_e</span>:<span class='ident'>expr</span>, $( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span> ),<span class='op'>*</span> ) <span class='op'>=&gt;</span> {
+        {
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>verex</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Verex</span>::<span class='ident'>new</span>();
+            <span class='ident'>verex</span>.<span class='ident'>find_expr</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>first_e</span>);
+            $(
+                <span class='ident'>verex</span>.<span class='ident'>or_find_expr</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>);
             )<span class='op'>*</span>
             <span class='ident'>verex</span>
         }
@@ -450,8 +575,8 @@
 }
 
 <span class='doccomment'>/// Any character at least one time except for these characters</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>something_but</span>(<span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
-    <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>something_but</span>(<span class='ident'>value</span>).<span class='ident'>clone</span>()
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>something_but</span>(<span class='ident'>chars</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>Verex</span> {
+    <span class='ident'>Verex</span>::<span class='ident'>new</span>().<span class='ident'>something_but</span>(<span class='ident'>chars</span>).<span class='ident'>clone</span>()
 }
 
 <span class='doccomment'>/// Add a token for the start of a line</span>
@@ -533,6 +658,6 @@
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     
-    <script async src="../../search-index.js"></script>
+    <script defer src="../../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>bitflags::__core::os::ext::prelude::OpenOptionsExt - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../../main.css">
 
     
@@ -45,33 +46,33 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-12417' class='srclink' href='https://doc.rust-lang.org/nightly/std/sys/ext/fs/trait.OpenOptionsExt.html?gotosrc=12417' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-13207' class='srclink' href='https://doc.rust-lang.org/nightly/std/sys/ext/fs/trait.OpenOptionsExt.html?gotosrc=13207' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait OpenOptionsExt {
-    fn <a href='#tymethod.desired_access' class='fnname'>desired_access</a>(&amp;mut self, access: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self;
-    fn <a href='#tymethod.creation_disposition' class='fnname'>creation_disposition</a>(&amp;mut self, val: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self;
-    fn <a href='#tymethod.flags_and_attributes' class='fnname'>flags_and_attributes</a>(&amp;mut self, val: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self;
-    fn <a href='#tymethod.share_mode' class='fnname'>share_mode</a>(&amp;mut self, val: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self;
+    fn <a href='#tymethod.desired_access' class='fnname'>desired_access</a>(&amp;mut self, access: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self;
+    fn <a href='#tymethod.creation_disposition' class='fnname'>creation_disposition</a>(&amp;mut self, val: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self;
+    fn <a href='#tymethod.flags_and_attributes' class='fnname'>flags_and_attributes</a>(&amp;mut self, val: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self;
+    fn <a href='#tymethod.share_mode' class='fnname'>share_mode</a>(&amp;mut self, val: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self;
 }</pre><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
 </em></div><div class='docblock'><p>Windows-specific extensions to <code>OpenOptions</code></p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.desired_access' class='method stab unstable'><code>fn <a href='#tymethod.desired_access' class='fnname'>desired_access</a>(&amp;mut self, access: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
+        <h3 id='tymethod.desired_access' class='method stab unstable'><code>fn <a href='#tymethod.desired_access' class='fnname'>desired_access</a>(&amp;mut self, access: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
 </em></div><div class='docblock'><p>Overrides the <code>dwDesiredAccess</code> argument to the call to <code>CreateFile</code>
 with the specified value.</p>
-</div><h3 id='tymethod.creation_disposition' class='method stab unstable'><code>fn <a href='#tymethod.creation_disposition' class='fnname'>creation_disposition</a>(&amp;mut self, val: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
+</div><h3 id='tymethod.creation_disposition' class='method stab unstable'><code>fn <a href='#tymethod.creation_disposition' class='fnname'>creation_disposition</a>(&amp;mut self, val: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
 </em></div><div class='docblock'><p>Overrides the <code>dwCreationDisposition</code> argument to the call to
 <code>CreateFile</code> with the specified value.</p>
 
 <p>This will override any values of the standard <code>create</code> flags, for
 example.</p>
-</div><h3 id='tymethod.flags_and_attributes' class='method stab unstable'><code>fn <a href='#tymethod.flags_and_attributes' class='fnname'>flags_and_attributes</a>(&amp;mut self, val: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
+</div><h3 id='tymethod.flags_and_attributes' class='method stab unstable'><code>fn <a href='#tymethod.flags_and_attributes' class='fnname'>flags_and_attributes</a>(&amp;mut self, val: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
 </em></div><div class='docblock'><p>Overrides the <code>dwFlagsAndAttributes</code> argument to the call to
 <code>CreateFile</code> with the specified value.</p>
 
 <p>This will override any values of the standard flags on the
 <code>OpenOptions</code> structure.</p>
-</div><h3 id='tymethod.share_mode' class='method stab unstable'><code>fn <a href='#tymethod.share_mode' class='fnname'>share_mode</a>(&amp;mut self, val: <a href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
+</div><h3 id='tymethod.share_mode' class='method stab unstable'><code>fn <a href='#tymethod.share_mode' class='fnname'>share_mode</a>(&amp;mut self, val: <a class='primitive' href='https://doc.rust-lang.org/nightly/bitflags/primitive.u32.html'>u32</a>) -&gt; &amp;mut Self</code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>open_options_ext</code>)<p>: may require more thought/methods</p>
 </em></div><div class='docblock'><p>Overrides the <code>dwShareMode</code> argument to the call to <code>CreateFile</code> with
 the specified value.</p>
 
@@ -142,6 +143,6 @@ the specified value.</p>
     <script src="../../../../../jquery.js"></script>
     <script src="../../../../../main.js"></script>
     
-    <script async src="../../../../../search-index.js"></script>
+    <script defer src="../../../../../search-index.js"></script>
 </body>
 </html>

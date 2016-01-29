@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Regex","A compiled regular expression"]],"struct":[["Verex","The struct used for building verbal expression objects"]]});
+initSidebarItems({"enum":[["Expression","The enum used to have common functions for different Types"],["Regex","A compiled regular expression"]],"struct":[["Verex","The struct used for building verbal expression objects"]]});

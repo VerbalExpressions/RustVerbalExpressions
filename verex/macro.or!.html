@@ -9,6 +9,7 @@
 
     <title>verex::or! - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -45,21 +46,12 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-329' class='srclink' href='../src/verex/lib.rs.html#164-175' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-401' class='srclink' href='../src/verex/lib.rs.html#211-222' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>or</span> {
-    ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>first_string</span>:<span class='ident'>expr</span>, $( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>string</span>:<span class='ident'>expr</span> ),<span class='op'>*</span> ) <span class='op'>=&gt;</span> {
-        {
-            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>verex</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>Verex</span>::<span class='ident'>new</span>();
-            <span class='ident'>verex</span>.<span class='ident'>find</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>first_string</span>);
-            $(
-                <span class='ident'>verex</span>.<span class='ident'>or_find</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>string</span>);
-            )<span class='op'>*</span>
-            <span class='ident'>verex</span>
-        }
-    };
+    ( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>first_string</span>:<span class='ident'>expr</span>, $( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>string</span>:<span class='ident'>expr</span> ),<span class='op'>*</span> ) <span class='op'>=&gt;</span> { ... };
 }</pre>
-<div class='docblock'><p>Match any of the given sub-expressions</p>
+<div class='docblock'><p>Match any of the given values</p>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -119,6 +111,6 @@
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>
