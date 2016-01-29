@@ -1,6 +1,6 @@
 [package]
 name = "verex"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Alexander Popiak <alexander.popiak@gmail.com>"]
 description = "This crate provides a Rust implementation of VerbalExpressions in order to build regex strings without knowing the minutiae of regex syntax."
 documentation="https://verbalexpressions.github.io/RustVerbalExpressions/verex/"
