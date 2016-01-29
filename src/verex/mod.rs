@@ -231,7 +231,7 @@ impl Verex {
         self.capture_value(escape(value).as_ref())
     }
 
-    /// Find a specific string and capture it
+    /// Find a sub-expression and capture it (won't be escaped)
     pub fn capture_expr(&mut self, expr: Expression) -> &mut Verex {
         match_expr!(expr, self, capture_value)
     }
@@ -458,4 +458,24 @@ impl PartialEq for Verex {
     fn eq(&self, other: &Verex) -> bool {
         self.string == other.string
     }
+}
+
+
+// In order to test the macro it has to be in scope...
+#[test]
+fn test_match_expr() {
+    let string = "a string";
+    let mut test_string_verex = Verex::new();
+    let string_result = match_expr!(Expression::String(string), test_string_verex, find_value);
+    assert_eq!("(?:(?:a string))", string_result.source());
+
+    let verex = Verex::from_str(string);
+    let mut test_verex_verex = Verex::new();
+    let verex_result = match_expr!(Expression::Verex(&verex), test_verex_verex, find_value);
+    assert_eq!("(?:(?:(?:a string)))", verex_result.source());
+
+    let regex = Regex::new(string).unwrap();
+    let mut test_regex_verex = Verex::new();
+    let regex_result = match_expr!(Expression::Regex(&regex), test_regex_verex, find_value);
+    assert_eq!("(?:(?:a string))", regex_result.source());
 }

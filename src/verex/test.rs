@@ -42,6 +42,17 @@ fn test_add() {
 }
 
 #[test]
+fn test_update_source_with_modifiers() {
+    let mut verex = Verex::new();
+    verex.add(r"a");
+    assert_eq!(verex.source(), r"(?:)");
+    verex.update_source_with_modifiers();
+    assert_eq!(verex.source(), A_VEREX_STRING);
+    verex.search_one_line(false);
+    assert_eq!(verex.source(), r"(?m:a)");
+}
+
+#[test]
 fn test_compile_regex() {
     let mut verex: Verex = Verex::new();
     verex.find(r"a");
@@ -157,6 +168,44 @@ fn test_br_and_linebreak() {
 }
 
 #[test]
+fn test_capture_value() {
+    let mut verex = Verex::new();
+    verex.capture_value("foo");
+    let text = "bar foo baz";
+    let regex = verex.compile().unwrap();
+    let capture = regex.captures(text).unwrap();
+    assert_eq!(capture.at(1), Some("foo"));
+}
+
+#[test]
+fn test_capture() {
+    let mut verex = Verex::new();
+    verex.capture("[a]*"); // capture a regex expression that will be escaped
+    let text = "bar [a]* baz aa";
+    let regex = verex.compile().unwrap();
+    let capture = regex.captures(text).unwrap();
+    assert_eq!(capture.at(1), Some("[a]*"));
+    assert_eq!(capture.at(2), None); // regex is escaped and does not match
+}
+
+#[test]
+fn test_capture_expr() {
+    let mut verex = Verex::new();
+    verex.capture_expr(E::String("(?:aa)+")); // capture a regex expression that will not be escaped
+    let text = "bar [a]* baz aa aaaa";
+    let regex = verex.compile().unwrap();
+    let mut captures = regex.captures_iter(text);
+    let capture1 = captures.next().unwrap();
+    assert_eq!(capture1.at(1), Some("aa"));
+    assert_eq!(capture1.at(2), None);
+    let capture2 = captures.next().unwrap();
+    assert_eq!(capture2.at(1), Some("aaaa"));
+    assert_eq!(capture2.at(2), None);
+
+    assert!(captures.next().is_none());
+}
+
+#[test]
 fn test_digit() {
     let verex = Verex::new().digit().clone();
     assert_eq!(verex.source(), r"(?:\d)");
@@ -193,6 +242,17 @@ fn test_find_and_then() {
     assert!(regex2.is_match(r"foo"));
     assert!(regex2.is_match(r"foofoo"));
     assert!(regex2.is_match(r"barfoo"));
+}
+
+#[test]
+fn test_find_escapes() {
+    let mut verex: Verex = Verex::new();
+    verex.find("[fo]+");
+    assert_eq!(verex.source(), r"(?:(?:\[fo\]\+))");
+
+    let regex = verex.compile().unwrap();
+    assert!(!regex.is_match(r"foo"));
+    assert!(regex.is_match(r"[fo]+"));
 }
 
 #[test]
@@ -257,6 +317,20 @@ fn test_maybe() {
          .maybe(r"a")
          .end_of_line();
     assert_eq!(verex.source(), r"(?:^(?:a)?$)");
+
+    let regex = verex.compile().unwrap();
+    assert!(regex.is_match(r""));
+    assert!(regex.is_match(r"a"));
+    assert!(!regex.is_match(r"foo"));
+}
+
+#[test]
+fn test_maybe_expr() {
+    let mut verex: Verex = Verex::new();
+    verex.start_of_line()
+         .maybe_expr(E::String(r"(?:a)"))
+         .end_of_line();
+    assert_eq!(verex.source(), r"(?:^(?:(?:a))?$)");
 
     let regex = verex.compile().unwrap();
     assert!(regex.is_match(r""));
