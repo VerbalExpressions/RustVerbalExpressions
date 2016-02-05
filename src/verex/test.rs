@@ -26,7 +26,7 @@ fn test_constructors() {
     let verex1: Verex = Verex::new();
     assert_eq!(verex1.source(), r"(?:)");
 
-    let verex2: Verex = Verex::from_string(r"a".to_string());
+    let verex2: Verex = Verex::from_string(r"a".to_owned());
     assert_eq!(verex2.source(), A_VEREX_STRING);
 
     let verex3: Verex = Verex::from_str(r"a");
