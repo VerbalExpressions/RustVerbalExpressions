@@ -57,7 +57,7 @@ const ESCAPE_PAIRS: [(&'static str, &'static str); 14] = [
 ];
 
 fn escape(string: &str) -> String {
-    let mut result = string.to_string();
+    let mut result = string.to_owned();
     for pair in ESCAPE_PAIRS.into_iter() {
         let regex = Regex::new(pair.0).unwrap();
         result = regex.replace_all(result.as_ref(), pair.1);
@@ -93,7 +93,7 @@ impl Verex {
 
     /// Create a `Verex` object from a `&str`
     pub fn from_str(string: &str) -> Verex {
-        Verex::from_string(string.to_string())
+        Verex::from_string(string.to_owned())
     }
 
     // --------------------------------------------------
@@ -315,7 +315,7 @@ impl Verex {
     /// A range of characters e.g. [A-Z]
     /// Usage example: verex.range(vec![('a', 'z'),('A', 'Z')])
     pub fn range(&mut self, range: Vec<(char, char)>) -> &mut Verex {
-        let mut string = r"[".to_string();
+        let mut string = r"[".to_owned();
         for tuple in range {
             let from = tuple.0;
             let to = tuple.1;
